@@ -83,14 +83,15 @@ router.post('/putData', (req, res) => {
 
 router.post('/putSigninData', (req, res) => {
   let data = new users();
+
+  const {id, name, email, password} = req.body;
   if (!name || !email || !password) {
     return res.json({
       success: false,
       error: 'ALL VALUES REQUIRED',
     })
   }
-
-  const {id, name, email, password} = req.body;
+  
   data.id = id;
   data.name = name;
   data.email = email;

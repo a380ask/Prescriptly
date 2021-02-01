@@ -25,13 +25,6 @@ class Register extends Component {
         });
     };
 
-    componentWillUnmount() {
-        if (this.state.intervalIsSet) {
-          clearInterval(this.state.intervalIsSet);
-          this.setState({ intervalIsSet: null });
-        }
-      }
-
     render() {
         return (
             <div>
@@ -57,7 +50,7 @@ class Register extends Component {
                     />
                     <button
                         type="submit"
-                        onClick={() => this.putDataToDB(this.state.name, 
+                        onClick={() => this.putDataToDB(document.getElementById('name').value, 
                             document.getElementById('email').value, document.getElementById('password').value)}
                     >
                         Register
