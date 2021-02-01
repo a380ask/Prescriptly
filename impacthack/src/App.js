@@ -7,8 +7,10 @@ import {
 import Home from "./Home";
 import PastMedications from "./PastMedications";
 import Reminders from "./Reminders";
+import Silly from "./Silly";
+import Signin from "./Signin";
+import Register from "./Register";
 import "./App.css";
-import axios from 'axios';
 
 class App extends Component {
   render() {
@@ -20,11 +22,17 @@ class App extends Component {
             <li><NavLink to="/">Home</NavLink></li>
             <li><NavLink to="/pastmedications">Past Medications</NavLink></li>
             <li><NavLink to="/reminders">Reminders</NavLink></li>
+            <li><NavLink to="/silly">Silly</NavLink></li>
+            <li><NavLink to="/signin">Sign in</NavLink></li>
+            <li><NavLink to="/register">Register</NavLink></li>
           </ul>
           <div className="content">
             <Route exact path="/" component={Home}/>
             <Route path="/pastmedications" component={PastMedications} />
             <Route path="/reminders" component={Reminders} /> 
+            <Route path="/silly" component={Silly} />
+            <Route path="/signin" component={Signin} />
+            <Route path="/register" component={Register} />
           </div>
         </div>
       </HashRouter>
