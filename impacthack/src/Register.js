@@ -7,8 +7,7 @@ class Register extends Component {
         id: 0,
         name: '',
         email: '',
-        password: '',
-        medications: ''
+        password: ''
     };
  
     putDataToDB = (name, email, password) => {

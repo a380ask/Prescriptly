@@ -48,7 +48,7 @@ class CurrentMedications extends Component {
             ++idToBeAdded;
         }
 
-        axios.post('http://localhost:3001/api/putData', {
+        axios.post('http://localhost:3001/api/putMedicationData', {
             id: idToBeAdded,
             name: name,
             type: type,
@@ -127,11 +127,11 @@ class CurrentMedications extends Component {
                     {data.length <= 0
                         ? 'NO DB ENTRIES YET'
                         : data.map((dat) => (
-                            <li style={{ padding: '10px' }} key={data.name}>
+                            <li style={{ padding: '10px' }} key={data._id}>
                                 <span style={{ color: 'gray' }}> id: </span> {dat._id} <br />
-                                <span style={{ color: 'gray' }}> Name: </span> {dat.name} <br />
+                                <span style={{ color: 'gray' }}> Medication: </span> {dat.name} <br />
                                 <span style={{ color: 'gray' }}> Type: </span> {dat.type} <br />
-                                <span style={{ color: 'gray' }}> Date Prescribed: </span> {dat.prescribedMonth} / {dat.prescribedDay} / {dat.prescribedYear}<br />
+                                <span style={{ color: 'gray' }}> Prescribed Date: </span> {dat.prescribedMonth}/{dat.prescribedDay}/{dat.prescribedYear} <br />
                                 <span style={{ color: 'gray' }}> Instructions: </span> {dat.instructions} <br />
                             </li>
                         ))}
