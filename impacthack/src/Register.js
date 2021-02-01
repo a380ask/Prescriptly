@@ -8,6 +8,7 @@ class Register extends Component {
         name: '',
         email: '',
         password: '',
+        medications: ''
     };
  
     putDataToDB = (name, email, password) => {
@@ -24,13 +25,6 @@ class Register extends Component {
             password: password
         });
     };
-
-    componentWillUnmount() {
-        if (this.state.intervalIsSet) {
-          clearInterval(this.state.intervalIsSet);
-          this.setState({ intervalIsSet: null });
-        }
-      }
 
     render() {
         return (
@@ -57,7 +51,7 @@ class Register extends Component {
                     />
                     <button
                         type="submit"
-                        onClick={() => this.putDataToDB(this.state.name, 
+                        onClick={() => this.putDataToDB(document.getElementById('name').value, 
                             document.getElementById('email').value, document.getElementById('password').value)}
                     >
                         Register
