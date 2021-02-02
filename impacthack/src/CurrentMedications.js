@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { NavLink } from 'react-router-dom';
 import axios from 'axios';
 
 class CurrentMedications extends Component {
@@ -40,7 +41,6 @@ class CurrentMedications extends Component {
             .then((res) => this.setState({ data: res.data }));
     };
 
-
     putDataToDB = (name, type, prescribedMonth, prescribedDay, prescribedYear, instructions) => {
         let currentIds = this.state.data.map((data) => data.id);
         let idToBeAdded = 0;
@@ -57,6 +57,43 @@ class CurrentMedications extends Component {
             prescribedYear: prescribedYear, 
             instructions: instructions
 
+        });
+    };
+
+    //Moves data to past medication page and removes it from this page
+    putPastDataToDB = (name, type, prescribedMonth, prescribedDay, prescribedYear, instructions) => {
+        let currentIds = this.state.data.map((data) => data.id);
+        let idToBeAdded = 0;
+        while (currentIds.includes(idToBeAdded)) {
+            ++idToBeAdded;
+        }
+
+        axios.post('http://localhost:3001/api/putPastMedicationData', {
+            id: idToBeAdded,
+            name: name,
+            type: type,
+            prescribedMonth: prescribedMonth,
+            prescribedDay: prescribedDay, 
+            prescribedYear: prescribedYear, 
+            instructions: instructions
+
+        });
+    };
+
+    // our delete method that uses our backend api
+    // to remove existing database information
+    deleteFromDB = (idTodelete) => {
+        let objIdToDelete = null;
+        this.state.data.forEach((dat) => {
+            if (dat._id == idTodelete) {
+                objIdToDelete = dat._id;
+            }
+        });
+
+        axios.delete('http://localhost:3001/api/deleteMedicationData', {
+            data: {
+                id: objIdToDelete,
+            },
         });
     };
 
@@ -105,7 +142,7 @@ class CurrentMedications extends Component {
                         id="prescribedYear"
                     />
                     <input
-                        type="test"
+                        type="text"
                         name="instructions"
                         placeholder="Instructions for Medication"
                         id="instructions"
@@ -124,15 +161,27 @@ class CurrentMedications extends Component {
                     </button>
                 </form>
                 <ul>
-                    {data.length <= 0
-                        ? 'NO DB ENTRIES YET'
-                        : data.map((dat) => (
+                    {data.length <= 0 ? 'NO DB ENTRIES YET': data.map((dat) => (
                             <li style={{ padding: '10px' }} key={data._id}>
                                 <span style={{ color: 'gray' }}> id: </span> {dat._id} <br />
                                 <span style={{ color: 'gray' }}> Medication: </span> {dat.name} <br />
                                 <span style={{ color: 'gray' }}> Type: </span> {dat.type} <br />
                                 <span style={{ color: 'gray' }}> Prescribed Date: </span> {dat.prescribedMonth}/{dat.prescribedDay}/{dat.prescribedYear} <br />
                                 <span style={{ color: 'gray' }}> Instructions: </span> {dat.instructions} <br />
+                                <button onClick={() => console.log("Edit Not Implemented Yet")}>
+                                    EDIT - Not Implemented Yet :(
+                                </button> <br />
+
+                                <button onClick={() => this.deleteFromDB(dat._id)}>
+                                    DELETE
+                                </button> <br />
+                                
+                                <button onClick={() => {
+                                    this.putPastDataToDB(dat.name, dat.type, dat.prescribedMonth, dat.prescribedDay, dat.prescribedYear, dat.instructions);
+                                    this.deleteFromDB(dat._id);
+                                    }}>
+                                    MOVE TO PAST MEDICATION
+                                </button> <br />
                             </li>
                         ))}
                 </ul>
