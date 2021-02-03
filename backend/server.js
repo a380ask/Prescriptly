@@ -146,6 +146,14 @@ router.delete('/deleteMedicationData', (req, res) => {
   });
 });
 
+router.post('/updateMedicationData', (req, res) => {
+  const { id, update } = req.body;
+  Medication.findByIdAndUpdate(id, update, (err) => {
+    if (err) return res.json({ success: false, error: err });
+    return res.json({ success: true });
+  });
+});
+
 router.post('/putPastMedicationData', (req, res) => {
   let data = new PastMedication();
 

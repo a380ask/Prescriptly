@@ -1,6 +1,8 @@
 import React, { Component } from "react";
-import { NavLink } from 'react-router-dom';
 import axios from 'axios';
+
+import { Route, NavLink, HashRouter, Switch } from 'react-router-dom';
+import EditMedication from './EditMedication';
 
 class CurrentMedications extends Component {
     state = {
@@ -53,8 +55,8 @@ class CurrentMedications extends Component {
             name: name,
             type: type,
             prescribedMonth: prescribedMonth,
-            prescribedDay: prescribedDay, 
-            prescribedYear: prescribedYear, 
+            prescribedDay: prescribedDay,
+            prescribedYear: prescribedYear,
             instructions: instructions
 
         });
@@ -73,8 +75,8 @@ class CurrentMedications extends Component {
             name: name,
             type: type,
             prescribedMonth: prescribedMonth,
-            prescribedDay: prescribedDay, 
-            prescribedYear: prescribedYear, 
+            prescribedDay: prescribedDay,
+            prescribedYear: prescribedYear,
             instructions: instructions
 
         });
@@ -97,10 +99,11 @@ class CurrentMedications extends Component {
         });
     };
 
-    
+
 
     render() {
         const { data } = this.state;
+
         return (
             <div>
                 <h2>Current Medications</h2>
@@ -119,7 +122,7 @@ class CurrentMedications extends Component {
                     />
                     <input
                         type="number"
-                        min="1" 
+                        min="1"
                         max="12"
                         name="prescribedMonth"
                         placeholder="Month"
@@ -127,7 +130,7 @@ class CurrentMedications extends Component {
                     />
                     <input
                         type="number"
-                        min="1" 
+                        min="1"
                         max="31"
                         name="prescribedDay"
                         placeholder="Day"
@@ -135,7 +138,7 @@ class CurrentMedications extends Component {
                     />
                     <input
                         type="number"
-                        min="1900" 
+                        min="1900"
                         max="2050"
                         name="prescribedYear"
                         placeholder="Year"
@@ -150,8 +153,8 @@ class CurrentMedications extends Component {
                     <button
                         type="submit"
                         onClick={() => this.putDataToDB(
-                            document.getElementById('name').value, 
-                            document.getElementById('type').value, 
+                            document.getElementById('name').value,
+                            document.getElementById('type').value,
                             document.getElementById('prescribedMonth').value,
                             document.getElementById('prescribedDay').value,
                             document.getElementById('prescribedYear').value,
@@ -161,31 +164,33 @@ class CurrentMedications extends Component {
                     </button>
                 </form>
                 <ul>
-                    {data.length <= 0 ? 'NO DB ENTRIES YET': data.map((dat) => (
-                            <li style={{ padding: '10px' }} key={data._id}>
-                                <span style={{ color: 'gray' }}> id: </span> {dat._id} <br />
-                                <span style={{ color: 'gray' }}> Medication: </span> {dat.name} <br />
-                                <span style={{ color: 'gray' }}> Type: </span> {dat.type} <br />
-                                <span style={{ color: 'gray' }}> Prescribed Date: </span> {dat.prescribedMonth}/{dat.prescribedDay}/{dat.prescribedYear} <br />
-                                <span style={{ color: 'gray' }}> Instructions: </span> {dat.instructions} <br />
-                                <button onClick={() => console.log("Edit Not Implemented Yet")}>
-                                    EDIT - Not Implemented Yet :(
+                    {data.length <= 0 ? 'NO DB ENTRIES YET' : data.map((dat) => (
+                        <li style={{ padding: '10px' }} key={data._id}>
+                            <span style={{ color: 'gray' }}> id: </span> {dat._id} <br />
+                            <span style={{ color: 'gray' }}> Medication: </span> {dat.name} <br />
+                            <span style={{ color: 'gray' }}> Type: </span> {dat.type} <br />
+                            <span style={{ color: 'gray' }}> Prescribed Date: </span> {dat.prescribedMonth}/{dat.prescribedDay}/{dat.prescribedYear} <br />
+                            <span style={{ color: 'gray' }}> Instructions: </span> {dat.instructions} <br />
+
+                            <NavLink to={"/editmedication/" + dat._id} >
+                                <button>EDIT</button> <br />
+                            </NavLink>
+
+                            <button onClick={() => this.deleteFromDB(dat._id)}>
+                                DELETE
                                 </button> <br />
 
-                                <button onClick={() => this.deleteFromDB(dat._id)}>
-                                    DELETE
+                            <button onClick={() => {
+                                this.putPastDataToDB(dat.name, dat.type, dat.prescribedMonth, dat.prescribedDay, dat.prescribedYear, dat.instructions);
+                                this.deleteFromDB(dat._id);
+                            }}>
+                                MOVE TO PAST MEDICATION
                                 </button> <br />
-                                
-                                <button onClick={() => {
-                                    this.putPastDataToDB(dat.name, dat.type, dat.prescribedMonth, dat.prescribedDay, dat.prescribedYear, dat.instructions);
-                                    this.deleteFromDB(dat._id);
-                                    }}>
-                                    MOVE TO PAST MEDICATION
-                                </button> <br />
-                            </li>
-                        ))}
+                        </li>
+                    ))}
                 </ul>
             </div>
+
         );
     }
 }
