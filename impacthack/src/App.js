@@ -10,6 +10,8 @@ import Reminders from "./Reminders";
 import Silly from "./Silly";
 import Signin from "./Signin";
 import Register from "./Register";
+import CurrentMedications from "./CurrentMedications";
+import EditMedication from "./EditMedication";
 import "./App.css";
 
 class App extends Component {
@@ -20,6 +22,7 @@ class App extends Component {
           <h1>Cool Name</h1>
           <ul>
             <li><NavLink to="/">Home</NavLink></li>
+            <li><NavLink to="/currentmedications">Current Medications</NavLink></li>
             <li><NavLink to="/pastmedications">Past Medications</NavLink></li>
             <li><NavLink to="/reminders">Reminders</NavLink></li>
             <li><NavLink to="/silly">Silly</NavLink></li>
@@ -28,6 +31,8 @@ class App extends Component {
           </ul>
           <div className="content">
             <Route exact path="/" component={Home}/>
+            <Route path="/currentmedications" component={CurrentMedications} />
+            <Route path="/editmedication/:medicationId" component={EditMedication} />
             <Route path="/pastmedications" component={PastMedications} />
             <Route path="/reminders" component={Reminders} /> 
             <Route path="/silly" component={Silly} />
