@@ -165,7 +165,7 @@ class CurrentMedications extends Component {
                 </form>
                 <ul>
                     {data.length <= 0 ? 'NO DB ENTRIES YET' : data.map((dat) => (
-                        <li style={{ padding: '10px' }} key={data._id}>
+                        <li style={{ padding: '10px' }} key={dat._id}>
                             <span style={{ color: 'gray' }}> id: </span> {dat._id} <br />
                             <span style={{ color: 'gray' }}> Medication: </span> {dat.name} <br />
                             <span style={{ color: 'gray' }}> Type: </span> {dat.type} <br />
