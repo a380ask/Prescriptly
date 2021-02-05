@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import {
   Route,
-  NavLink,
   HashRouter
 } from "react-router-dom";
 import Home from "./Home";
@@ -14,30 +13,29 @@ import CurrentMedications from "./CurrentMedications";
 import EditMedication from "./EditMedication";
 import "./App.css";
 
+// async function windowLoc() {
+//     var loc = window.location.href;
+//     var indexHash = window.location.href.indexOf("#"); 
+//     var indexSecondSlash = window.location.href.indexOf("#") + 1;
+//     var indexThirdSlash = window.location.href.indexOf("/", window.location.href.indexOf("#") + 1 + 1);
+//     userId = window.location.href.substring(window.location.href.indexOf("#") + 1 + 1, window.location.href.indexOf("/", window.location.href.indexOf("#") + 1 + 1));
+// }
+
 class App extends Component {
   render() {
     return (
       <HashRouter>
         <div>
           <h1>Cool Name</h1>
-          <ul>
-            <li><NavLink to="/">Home</NavLink></li>
-            <li><NavLink to="/currentmedications">Current Medications</NavLink></li>
-            <li><NavLink to="/pastmedications">Past Medications</NavLink></li>
-            <li><NavLink to="/reminders">Reminders</NavLink></li>
-            <li><NavLink to="/silly">Silly</NavLink></li>
-            <li><NavLink to="/signin">Sign in</NavLink></li>
-            <li><NavLink to="/register">Register</NavLink></li>
-          </ul>
-          <div className="content">
-            <Route exact path="/" component={Home}/>
-            <Route path="/currentmedications" component={CurrentMedications} />
-            <Route path="/editmedication/:medicationId" component={EditMedication} />
-            <Route path="/pastmedications" component={PastMedications} />
-            <Route path="/reminders" component={Reminders} /> 
-            <Route path="/silly" component={Silly} />
-            <Route path="/signin" component={Signin} />
-            <Route path="/register" component={Register} />
+          <div className="content" id="id">
+            <Route exact path="/:userId/home" component={Home} />
+            <Route exact path="/:userId/currentmedications" component={CurrentMedications} />
+            <Route exact path="/:userId/editmedication/:medicationId" component={EditMedication} />
+            <Route exact path="/:userId/pastmedications" component={PastMedications} />
+            <Route exact path="/:userId/reminders" component={Reminders} />
+            <Route exact path="/silly" component={Silly} />
+            <Route exact path="/" component={Signin} />
+            <Route exact path="/register" component={Register} />
           </div>
         </div>
       </HashRouter>

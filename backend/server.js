@@ -86,28 +86,28 @@ router.post('/putData', (req, res) => {
 router.post('/putSigninData', (req, res) => {
   let data = new users();
 
-  const {id, name, email, password} = req.body;
+  const { id, name, email, password } = req.body;
   if (!name || !email || !password) {
     return res.json({
       success: false,
       error: 'ALL VALUES REQUIRED',
     })
   }
-  
+
   data.id = id;
   data.name = name;
   data.email = email;
   data.password = password;
   data.save((err) => {
     if (err) return res.json({ success: false, error: err });
-    return res.json({success: true});
+    return res.json({ success: true });
   });
 });
 
 router.post('/putMedicationData', (req, res) => {
   let data = new Medication();
 
-  const {id, name, type, prescribedMonth, prescribedDay, prescribedYear, instructions} = req.body;
+  const { id, name, type, prescribedMonth, prescribedDay, prescribedYear, instructions } = req.body;
 
   if (!name || !type || !prescribedMonth || !prescribedDay || !prescribedYear || !instructions) {
     return res.json({
@@ -126,7 +126,7 @@ router.post('/putMedicationData', (req, res) => {
 
   data.save((err) => {
     if (err) return res.json({ success: false, error: err });
-    return res.json({success: true});
+    return res.json({ success: true });
   });
 });
 
@@ -156,7 +156,7 @@ router.post('/updateMedicationData', (req, res) => {
 router.post('/putPastMedicationData', (req, res) => {
   let data = new PastMedication();
 
-  const {id, name, type, prescribedMonth, prescribedDay, prescribedYear, instructions} = req.body;
+  const { id, name, type, prescribedMonth, prescribedDay, prescribedYear, instructions } = req.body;
 
   if (!name || !type || !prescribedMonth || !prescribedDay || !prescribedYear || !instructions) {
     return res.json({
@@ -175,7 +175,7 @@ router.post('/putPastMedicationData', (req, res) => {
 
   data.save((err) => {
     if (err) return res.json({ success: false, error: err });
-    return res.json({success: true});
+    return res.json({ success: true });
   });
 });
 
@@ -191,6 +191,13 @@ router.delete('/deletePastMedicationData', (req, res) => {
   PastMedication.findByIdAndRemove(id, (err) => {
     if (err) return res.send(err);
     return res.json({ success: true });
+  });
+});
+
+router.get('/getUserData', (req, res) => {
+  users.find((err, data) => {
+    if (err) return res.json({ success: false, error: err });
+    return res.json({ success: true, data: data });
   });
 });
 

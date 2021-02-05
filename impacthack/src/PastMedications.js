@@ -1,6 +1,10 @@
 import React, { Component } from "react";
 import axios from 'axios';
+import { NavLink } from 'react-router-dom';
 
+async function genMess() {
+    sessionStorage.setItem("message", "Successfully signed out");
+}
 class PastMedications extends Component {
     state = {
         data: [],
@@ -54,8 +58,8 @@ class PastMedications extends Component {
             name: name,
             type: type,
             prescribedMonth: prescribedMonth,
-            prescribedDay: prescribedDay, 
-            prescribedYear: prescribedYear, 
+            prescribedDay: prescribedDay,
+            prescribedYear: prescribedYear,
             instructions: instructions
 
         });
@@ -80,31 +84,39 @@ class PastMedications extends Component {
     render() {
         const { data } = this.state;
         return (
-            
+
             <div>
                 <h2>Past medications</h2>
                 <ul>
-                    {data.length <= 0 ? 'NO DB ENTRIES YET': data.map((dat) => (
-                            <li style={{ padding: '10px' }} key={dat._id}>
-                                <span style={{ color: 'gray' }}> id: </span> {dat._id} <br />
-                                <span style={{ color: 'gray' }}> Medication: </span> {dat.name} <br />
-                                <span style={{ color: 'gray' }}> Type: </span> {dat.type} <br />
-                                <span style={{ color: 'gray' }}> Prescribed Date: </span> {dat.prescribedMonth}/{dat.prescribedDay}/{dat.prescribedYear} <br />
-                                <span style={{ color: 'gray' }}> Instructions: </span> {dat.instructions} <br />
-                                <button onClick={() => console.log("Edit Not Implemented Yet")}>
-                                    EDIT - Not Implemented Yet :(
+                    <li><NavLink to={"/" + window.location.href.substring(window.location.href.indexOf("#") + 1 + 1, window.location.href.indexOf("/", window.location.href.indexOf("#") + 1 + 1)) + "/home"}>Home</NavLink></li>
+                    <li><NavLink to={"/" + window.location.href.substring(window.location.href.indexOf("#") + 1 + 1, window.location.href.indexOf("/", window.location.href.indexOf("#") + 1 + 1)) + "/currentmedications"}>Current Medications</NavLink></li>
+                    <li><NavLink to={"/" + window.location.href.substring(window.location.href.indexOf("#") + 1 + 1, window.location.href.indexOf("/", window.location.href.indexOf("#") + 1 + 1)) + "/pastmedications"}>Past Medications</NavLink></li>
+                    <li><NavLink to={"/" + window.location.href.substring(window.location.href.indexOf("#") + 1 + 1, window.location.href.indexOf("/", window.location.href.indexOf("#") + 1 + 1)) + "/reminders"}>Reminders</NavLink></li>
+                    <li><NavLink to="/silly">Silly</NavLink></li>
+                    <li><NavLink to="/" onClick={genMess}>Sign Out</NavLink></li>
+                </ul>
+                <ul>
+                    {data.length <= 0 ? 'NO DB ENTRIES YET' : data.map((dat) => (
+                        <li style={{ padding: '10px' }} key={dat._id}>
+                            <span style={{ color: 'gray' }}> id: </span> {dat._id} <br />
+                            <span style={{ color: 'gray' }}> Medication: </span> {dat.name} <br />
+                            <span style={{ color: 'gray' }}> Type: </span> {dat.type} <br />
+                            <span style={{ color: 'gray' }}> Prescribed Date: </span> {dat.prescribedMonth}/{dat.prescribedDay}/{dat.prescribedYear} <br />
+                            <span style={{ color: 'gray' }}> Instructions: </span> {dat.instructions} <br />
+                            <button onClick={() => console.log("Edit Not Implemented Yet")}>
+                                EDIT - Not Implemented Yet :(
                                 </button> <br />
-                                <button onClick={() => this.deleteFromDB(dat._id)}>
-                                    DELETE
+                            <button onClick={() => this.deleteFromDB(dat._id)}>
+                                DELETE
                                 </button> <br />
-                                <button onClick={() => {
-                                    this.putCurrentDataToDB(dat.name, dat.type, dat.prescribedMonth, dat.prescribedDay, dat.prescribedYear, dat.instructions);
-                                    this.deleteFromDB(dat._id);
-                                    }}>
-                                    RETURN TO CURRENT MEDICATION
+                            <button onClick={() => {
+                                this.putCurrentDataToDB(dat.name, dat.type, dat.prescribedMonth, dat.prescribedDay, dat.prescribedYear, dat.instructions);
+                                this.deleteFromDB(dat._id);
+                            }}>
+                                RETURN TO CURRENT MEDICATION
                                 </button> <br />
-                            </li>
-                        ))}
+                        </li>
+                    ))}
                 </ul>
             </div>
         );

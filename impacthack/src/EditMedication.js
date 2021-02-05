@@ -124,7 +124,7 @@ class EditMedications extends Component {
                     placeholder="Instructions for Medication"
                     id="instructions"
                 />
-                <NavLink to={"/currentmedications"}>
+                <NavLink to={"/" + window.location.href.substring(window.location.href.indexOf("#") + 1 + 1, window.location.href.indexOf("/", window.location.href.indexOf("#") + 1 + 1)) + "/currentmedications"}>
                     <button
                         type="submit"
                         onClick={() => this.updateDB(medicationId,
