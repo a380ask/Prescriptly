@@ -1,9 +1,11 @@
 import React, { Component } from "react";
 import axios from 'axios';
 
-import { Route, NavLink, HashRouter, Switch } from 'react-router-dom';
-import EditMedication from './EditMedication';
+import { NavLink } from 'react-router-dom';
 
+async function genMess() {
+    sessionStorage.setItem("message", "Successfully signed out");
+}
 class CurrentMedications extends Component {
     state = {
         data: [],
@@ -107,6 +109,14 @@ class CurrentMedications extends Component {
         return (
             <div>
                 <h2>Current Medications</h2>
+                <ul>
+                    <li><NavLink to={"/" + window.location.href.substring(window.location.href.indexOf("#") + 1 + 1, window.location.href.indexOf("/", window.location.href.indexOf("#") + 1 + 1)) + "/home"}>Home</NavLink></li>
+                    <li><NavLink to={"/" + window.location.href.substring(window.location.href.indexOf("#") + 1 + 1, window.location.href.indexOf("/", window.location.href.indexOf("#") + 1 + 1)) + "/currentmedications"}>Current Medications</NavLink></li>
+                    <li><NavLink to={"/" + window.location.href.substring(window.location.href.indexOf("#") + 1 + 1, window.location.href.indexOf("/", window.location.href.indexOf("#") + 1 + 1)) + "/pastmedications"}>Past Medications</NavLink></li>
+                    <li><NavLink to={"/" + window.location.href.substring(window.location.href.indexOf("#") + 1 + 1, window.location.href.indexOf("/", window.location.href.indexOf("#") + 1 + 1)) + "/reminders"}>Reminders</NavLink></li>
+                    <li><NavLink to="/silly">Silly</NavLink></li>
+                    <li><NavLink to="/" onClick={genMess}>Sign Out</NavLink></li>
+                </ul>
                 <form>
                     <input
                         type="text"
@@ -172,7 +182,7 @@ class CurrentMedications extends Component {
                             <span style={{ color: 'gray' }}> Prescribed Date: </span> {dat.prescribedMonth}/{dat.prescribedDay}/{dat.prescribedYear} <br />
                             <span style={{ color: 'gray' }}> Instructions: </span> {dat.instructions} <br />
 
-                            <NavLink to={"/editmedication/" + dat._id} >
+                            <NavLink to={"/" + window.location.href.substring(window.location.href.indexOf("#") + 1 + 1, window.location.href.indexOf("/", window.location.href.indexOf("#") + 1 + 1)) + "/editmedication/" + dat._id} >
                                 <button>EDIT</button> <br />
                             </NavLink>
 

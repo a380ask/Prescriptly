@@ -15,7 +15,7 @@ const EditMedication = () => {
         userID: null
 
     };
-    
+
     function updateDB(idToUpdate, updatedName, updatedType, updatedMonth, updatedDay, updatedYear, updatedInstructions) {
         axios.post('http://localhost:3001/api/updateMedicationData', {
             id: idToUpdate,
@@ -80,7 +80,7 @@ const EditMedication = () => {
                     placeholder="Instructions for Medication"
                     id="instructions"
                 />
-                <NavLink to={"/currentmedications"}>
+                <NavLink to={"/" + window.location.href.substring(window.location.href.indexOf("#") + 1 + 1, window.location.href.indexOf("/", window.location.href.indexOf("#") + 1 + 1)) + "/currentmedications"}>
                     <button
                         type="submit"
                         onClick={() => updateDB(medicationId,
