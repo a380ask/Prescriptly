@@ -5,6 +5,8 @@ const bodyParser = require('body-parser');
 const logger = require('morgan');
 const Data = require('./data');
 const users = require('./users');
+const Medication = require('./medication');
+const PastMedication = require('./pastMedication');
 
 const API_PORT = 3001;
 const app = express();
@@ -83,6 +85,8 @@ router.post('/putData', (req, res) => {
 
 router.post('/putSigninData', (req, res) => {
   let data = new users();
+
+  const { id, name, email, password } = req.body;
   if (!name || !email || !password) {
     return res.json({
       success: false,
@@ -90,14 +94,110 @@ router.post('/putSigninData', (req, res) => {
     })
   }
 
-  const {id, name, email, password} = req.body;
   data.id = id;
   data.name = name;
   data.email = email;
   data.password = password;
   data.save((err) => {
     if (err) return res.json({ success: false, error: err });
-    return res.json({success: true});
+    return res.json({ success: true });
+  });
+});
+
+router.post('/putMedicationData', (req, res) => {
+  let data = new Medication();
+
+  const { id, name, type, prescribedMonth, prescribedDay, prescribedYear, instructions } = req.body;
+
+  if (!name || !type || !prescribedMonth || !prescribedDay || !prescribedYear || !instructions) {
+    return res.json({
+      success: false,
+      error: 'ALL VALUES REQUIRED',
+    })
+  }
+
+  data.id = id;
+  data.name = name;
+  data.type = type;
+  data.prescribedMonth = prescribedMonth;
+  data.prescribedDay = prescribedDay;
+  data.prescribedYear = prescribedYear;
+  data.instructions = instructions;
+
+  data.save((err) => {
+    if (err) return res.json({ success: false, error: err });
+    return res.json({ success: true });
+  });
+});
+
+router.get('/getMedicationData', (req, res) => {
+  Medication.find((err, data) => {
+    if (err) return res.json({ success: false, error: err });
+    return res.json({ success: true, data: data });
+  });
+});
+
+router.delete('/deleteMedicationData', (req, res) => {
+  const { id } = req.body;
+  Medication.findByIdAndRemove(id, (err) => {
+    if (err) return res.send(err);
+    return res.json({ success: true });
+  });
+});
+
+router.post('/updateMedicationData', (req, res) => {
+  const { id, update } = req.body;
+  Medication.findByIdAndUpdate(id, update, (err) => {
+    if (err) return res.json({ success: false, error: err });
+    return res.json({ success: true });
+  });
+});
+
+router.post('/putPastMedicationData', (req, res) => {
+  let data = new PastMedication();
+
+  const { id, name, type, prescribedMonth, prescribedDay, prescribedYear, instructions } = req.body;
+
+  if (!name || !type || !prescribedMonth || !prescribedDay || !prescribedYear || !instructions) {
+    return res.json({
+      success: false,
+      error: 'ALL VALUES REQUIRED',
+    })
+  }
+
+  data.id = id;
+  data.name = name;
+  data.type = type;
+  data.prescribedMonth = prescribedMonth;
+  data.prescribedDay = prescribedDay;
+  data.prescribedYear = prescribedYear;
+  data.instructions = instructions;
+
+  data.save((err) => {
+    if (err) return res.json({ success: false, error: err });
+    return res.json({ success: true });
+  });
+});
+
+router.get('/getPastMedicationData', (req, res) => {
+  PastMedication.find((err, data) => {
+    if (err) return res.json({ success: false, error: err });
+    return res.json({ success: true, data: data });
+  });
+});
+
+router.delete('/deletePastMedicationData', (req, res) => {
+  const { id } = req.body;
+  PastMedication.findByIdAndRemove(id, (err) => {
+    if (err) return res.send(err);
+    return res.json({ success: true });
+  });
+});
+
+router.get('/getUserData', (req, res) => {
+  users.find((err, data) => {
+    if (err) return res.json({ success: false, error: err });
+    return res.json({ success: true, data: data });
   });
 });
 

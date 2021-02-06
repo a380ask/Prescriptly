@@ -1,11 +1,12 @@
 import React, { Component } from "react";
 import axios from 'axios';
+
 import { NavLink } from 'react-router-dom';
 
 async function genMess() {
     sessionStorage.setItem("message", "Successfully signed out");
 }
-class PastMedications extends Component {
+class CurrentMedications extends Component {
     state = {
         data: [],
         id: 0,
@@ -18,7 +19,6 @@ class PastMedications extends Component {
         userID: null
 
     };
-
     // when component mounts, first thing it does is fetch all existing data in our db
     // then we incorporate a polling logic so that we can easily see if our db has
     // changed and implement those changes into our UI
@@ -40,13 +40,12 @@ class PastMedications extends Component {
     }
 
     getDataFromDb = () => {
-        fetch('http://localhost:3001/api/getPastMedicationData')
+        fetch('http://localhost:3001/api/getMedicationData')
             .then((data) => data.json())
             .then((res) => this.setState({ data: res.data }));
     };
 
-    //Moves data to current medication page and removes it from this page
-    putCurrentDataToDB = (name, type, prescribedMonth, prescribedDay, prescribedYear, instructions) => {
+    putDataToDB = (name, type, prescribedMonth, prescribedDay, prescribedYear, instructions) => {
         let currentIds = this.state.data.map((data) => data.id);
         let idToBeAdded = 0;
         while (currentIds.includes(idToBeAdded)) {
@@ -65,7 +64,28 @@ class PastMedications extends Component {
         });
     };
 
+    //Moves data to past medication page and removes it from this page
+    putPastDataToDB = (name, type, prescribedMonth, prescribedDay, prescribedYear, instructions) => {
+        let currentIds = this.state.data.map((data) => data.id);
+        let idToBeAdded = 0;
+        while (currentIds.includes(idToBeAdded)) {
+            ++idToBeAdded;
+        }
 
+        axios.post('http://localhost:3001/api/putPastMedicationData', {
+            id: idToBeAdded,
+            name: name,
+            type: type,
+            prescribedMonth: prescribedMonth,
+            prescribedDay: prescribedDay,
+            prescribedYear: prescribedYear,
+            instructions: instructions
+
+        });
+    };
+
+    // our delete method that uses our backend api
+    // to remove existing database information
     deleteFromDB = (idTodelete) => {
         let objIdToDelete = null;
         this.state.data.forEach((dat) => {
@@ -74,19 +94,21 @@ class PastMedications extends Component {
             }
         });
 
-        axios.delete('http://localhost:3001/api/deletePastMedicationData', {
+        axios.delete('http://localhost:3001/api/deleteMedicationData', {
             data: {
                 id: objIdToDelete,
             },
         });
     };
 
+
+
     render() {
         const { data } = this.state;
-        return (
 
+        return (
             <div>
-                <h2>Past medications</h2>
+                <h2>Current Medications</h2>
                 <ul>
                     <li><NavLink to={"/" + window.location.href.substring(window.location.href.indexOf("#") + 1 + 1, window.location.href.indexOf("/", window.location.href.indexOf("#") + 1 + 1)) + "/home"}>Home</NavLink></li>
                     <li><NavLink to={"/" + window.location.href.substring(window.location.href.indexOf("#") + 1 + 1, window.location.href.indexOf("/", window.location.href.indexOf("#") + 1 + 1)) + "/currentmedications"}>Current Medications</NavLink></li>
@@ -95,6 +117,62 @@ class PastMedications extends Component {
                     <li><NavLink to="/silly">Silly</NavLink></li>
                     <li><NavLink to="/" onClick={genMess}>Sign Out</NavLink></li>
                 </ul>
+                <form>
+                    <input
+                        type="text"
+                        name="name"
+                        placeholder="Name"
+                        id="name"
+                    />
+                    <input
+                        type="text"
+                        name="type"
+                        placeholder="Type of Medication"
+                        id="type"
+                    />
+                    <input
+                        type="number"
+                        min="1"
+                        max="12"
+                        name="prescribedMonth"
+                        placeholder="Month"
+                        id="prescribedMonth"
+                    />
+                    <input
+                        type="number"
+                        min="1"
+                        max="31"
+                        name="prescribedDay"
+                        placeholder="Day"
+                        id="prescribedDay"
+                    />
+                    <input
+                        type="number"
+                        min="1900"
+                        max="2050"
+                        name="prescribedYear"
+                        placeholder="Year"
+                        id="prescribedYear"
+                    />
+                    <input
+                        type="text"
+                        name="instructions"
+                        placeholder="Instructions for Medication"
+                        id="instructions"
+                    />
+                    <button
+                        type="submit"
+                        onClick={() => this.putDataToDB(
+                            document.getElementById('name').value,
+                            document.getElementById('type').value,
+                            document.getElementById('prescribedMonth').value,
+                            document.getElementById('prescribedDay').value,
+                            document.getElementById('prescribedYear').value,
+                            document.getElementById('instructions').value)}
+                    >
+                        Add New Medication
+                    </button>
+                </form>
                 <ul>
                     {data.length <= 0 ? 'NO DB ENTRIES YET' : data.map((dat) => (
                         <li style={{ padding: '10px' }} key={data._id}>
@@ -103,24 +181,28 @@ class PastMedications extends Component {
                             <span style={{ color: 'gray' }}> Type: </span> {dat.type} <br />
                             <span style={{ color: 'gray' }}> Prescribed Date: </span> {dat.prescribedMonth}/{dat.prescribedDay}/{dat.prescribedYear} <br />
                             <span style={{ color: 'gray' }}> Instructions: </span> {dat.instructions} <br />
-                            <button onClick={() => console.log("Edit Not Implemented Yet")}>
-                                EDIT - Not Implemented Yet :(
-                                </button> <br />
+
+                            <NavLink to={"/" + window.location.href.substring(window.location.href.indexOf("#") + 1 + 1, window.location.href.indexOf("/", window.location.href.indexOf("#") + 1 + 1)) + "/editmedication/" + dat._id} >
+                                <button>EDIT</button> <br />
+                            </NavLink>
+
                             <button onClick={() => this.deleteFromDB(dat._id)}>
                                 DELETE
                                 </button> <br />
+
                             <button onClick={() => {
-                                this.putCurrentDataToDB(dat.name, dat.type, dat.prescribedMonth, dat.prescribedDay, dat.prescribedYear, dat.instructions);
+                                this.putPastDataToDB(dat.name, dat.type, dat.prescribedMonth, dat.prescribedDay, dat.prescribedYear, dat.instructions);
                                 this.deleteFromDB(dat._id);
                             }}>
-                                RETURN TO CURRENT MEDICATION
+                                MOVE TO PAST MEDICATION
                                 </button> <br />
                         </li>
                     ))}
                 </ul>
             </div>
+
         );
     }
 }
 
-export default PastMedications;
+export default CurrentMedications;
