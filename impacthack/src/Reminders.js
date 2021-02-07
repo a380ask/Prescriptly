@@ -5,6 +5,10 @@ import axios from 'axios';
 async function genMess() {
     sessionStorage.setItem("message", "Successfully signed out");
 }
+
+let filtered = [];
+let userIdString = '';
+
 class Reminders extends Component {
     state = {
         data: [],
@@ -50,8 +54,28 @@ class Reminders extends Component {
         document.getElementById("email").value = '';
     }
 
+    filterData = () => {
+        for(let i = 0; i < this.state.data.length; i++){
+            if(this.state.data[i].userID == userIdString && this.isIncluded(this.state.data[i])){
+                filtered.push(this.state.data[i]);
+            }
+        }
+    };
+    
+    isIncluded = (object) => {
+        for(let i = 0; i < filtered.length; i++){
+            if(filtered[i]._id === object._id){
+                return false;
+            }
+        }
+        return true;
+    };
+
     render() {
         const { data } = this.state;
+        userIdString = window.location.href.substring(window.location.href.indexOf("#") + 1 + 1, window.location.href.indexOf("/", window.location.href.indexOf("#") + 1 + 1));
+        this.filterData();
+
         return (
             <div>
                 <h2>Reminders</h2>
@@ -67,7 +91,7 @@ class Reminders extends Component {
                 <form>
                     <select id="meds">
                         <option disabled selected value="initial">---Select a medication---</option>
-                        {data.length <= 0 ? 'No medications; please add' : data.map((dat) => (
+                        {filtered.length <= 0 ? 'No medications; please add' : filtered.map((dat) => (
                             <option value={dat.name} key={dat._id}>{dat.name}</option>
                         ))}
                     </select>
