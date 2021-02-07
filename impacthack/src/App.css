@@ -1,43 +1,3 @@
-/*.App {
-/* .App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-  */
   ul {
     list-style-type: none;
     margin: 0;
@@ -79,7 +39,7 @@
   h2 {
     text-align: center;
     font-family: Arial;
-    font-size: 20px;
+    font-size: 25px;
     font-weight: none;
     margin-top: 30px;
   }
@@ -88,28 +48,13 @@
     text-align: center;
     padding-right: 10px; 
   }
-  button {
-    margin-left: 60%;
-    margin-top: 15px;
-    text-align: center; 
-    width: 20%;
-    background-color: #8ED0F2;
-    color: white;
-    padding: 14px 16px;
-    margin: 15px 205px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 15px;
-
-  }
   fieldset{
     width: 45%;
     margin-left: 26%;
     border-radius: 5px;
     background-color: #F0F0F0;
   }
-  input {
+  input, select{
   width: 100%;
   padding: 8px 15px;
   margin: 8px 0;
@@ -130,8 +75,73 @@
   width: 45%;
   padding-left:60%;
 }
-*/
 ::placeholder{
   color: black;
-  
+  font-family: Arial;
+}
+.reminderForm {
+  width: 50%;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+}
+.subBut {
+  width: 20%;
+  margin-left: auto;
+  display: block;
+  margin-right: auto;
+}
+label {
+  font-family: Arial;
+  float: left;
+}
+.left {
+  float: left;
+  display: inline-block;
+  width: 45%;
+}
+.right {
+  float: right;
+  display: inline-block;
+  width: 50%;
+}
+.container {
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+  width: 100%;
+}
+.card {
+  padding-top: 3%;
+  font-family: Arial;
+  margin: 25px;
+  border: 10px #00BDFE;
+}
+.buttonGroup {
+  padding: 10px;
+  position: relative;
+  background-color: #fff;
+  align-items: center;
+  margin: 10px;
+}
+
+.newButton {
+  display: inline-block;
+  width: 25%;
+  text-align: center;
+  border: gray;
+  background-color: #9EB6FF;
+  color: #fff;
+  cursor: pointer;
+  font-weight: bold;
+  margin-right: 25px;
+  align-items: center;
+  text-decoration: none;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  border-radius: 5px;
+}
+
+.outside {
+  margin-left: 20px;
+  margin-right: 20px;
 }

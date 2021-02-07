@@ -79,9 +79,10 @@ class Signin extends Component {
                             />
                         </form>
                         <button
+                        className="newButton"
                             onClick={() => this.clickSignin(document.getElementById("email").value, document.getElementById("password").value)}
                         >
-                            Sign In
+                            SIGN IN
                     </button>
                     </fieldset>
                 </div>
