@@ -26,7 +26,6 @@ class App extends Component {
     return (
       <HashRouter>
         <div>
-          <h1>Cool Name</h1>
           <div className="content" id="id">
             <Route exact path="/:userId/home" component={Home} />
             <Route exact path="/:userId/currentmedications" component={CurrentMedications} />

@@ -56,11 +56,11 @@ class Signin extends Component {
         }
         return (
             <div>
-                <h2>Sign in!</h2>
                 <ul>
                     <li><NavLink to="/">Sign in</NavLink></li>
                     <li><NavLink to="/register">Register</NavLink></li>
                 </ul>
+                <h2>Sign in!</h2>
                 <p id="message">{sessionStorage.getItem("message")}</p>
                 <form>
                     <input
