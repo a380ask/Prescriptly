@@ -76,12 +76,13 @@ class Register extends Component {
         }
         return (
             <div>
-                <h2>Register!</h2>
                 <ul>
-                    <li><NavLink to="/">Sign in</NavLink></li>
-                    <li><NavLink to="/register">Register</NavLink></li>
+                    <li><NavLink to="/">SIGN IN</NavLink></li>
+                    <li><NavLink to="/register">REGISTER</NavLink></li>
                 </ul>
+                <h2>REGISTER</h2>
                 <p>{sessionStorage.getItem("message")}</p>
+                <fieldset>
                 <form>
                     <input
                         type="text"
@@ -109,6 +110,7 @@ class Register extends Component {
                 >
                     Register
                     </button>
+                    </fieldset>
             </div>
         );
     }
