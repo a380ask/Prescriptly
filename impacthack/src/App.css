@@ -76,21 +76,6 @@
   width: 40%;
   padding-left:31%;
 }
-.right {
-flex: 50%;
-}
-.medications .left{
-  float: left;
-}
-.medication .right {
-  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-  transition: 0.3s;
-  width: 40%;
-  display:inline-block;
-}
-.medication  .card{
-    padding: 2px 16px;
-}
 ::placeholder{
   color: black;
   font-family: Arial;
@@ -156,13 +141,11 @@ label {
   padding-bottom: 5px;
   border-radius: 5px;
 }
-<<<<<<< HEAD
 
 .outside {
   margin-left: 20px;
   margin-right: 20px;
 }
-=======
 .footer {
   position: fixed;
   bottom: 0;
@@ -177,4 +160,3 @@ label {
   .Logo {
     background-image: url(./logo.png);
   }
->>>>>>> KritiBranch
