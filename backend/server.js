@@ -7,6 +7,7 @@ const Data = require('./data');
 const users = require('./users');
 const Medication = require('./medication');
 const PastMedication = require('./pastMedication');
+const Reminders = require('./reminders.js');
 
 const API_PORT = 3001;
 const app = express();
@@ -107,9 +108,9 @@ router.post('/putSigninData', (req, res) => {
 router.post('/putMedicationData', (req, res) => {
   let data = new Medication();
 
-  const { id, name, type, prescribedMonth, prescribedDay, prescribedYear, instructions } = req.body;
+  const { id, name, type, prescribedMonth, prescribedDay, prescribedYear, instructions, userID } = req.body;
 
-  if (!name || !type || !prescribedMonth || !prescribedDay || !prescribedYear || !instructions) {
+  if (!name || !type || !prescribedMonth || !prescribedDay || !prescribedYear || !instructions || !userID) {
     return res.json({
       success: false,
       error: 'ALL VALUES REQUIRED',
@@ -123,6 +124,7 @@ router.post('/putMedicationData', (req, res) => {
   data.prescribedDay = prescribedDay;
   data.prescribedYear = prescribedYear;
   data.instructions = instructions;
+  data.userID = userID;
 
   data.save((err) => {
     if (err) return res.json({ success: false, error: err });
@@ -156,9 +158,9 @@ router.post('/updateMedicationData', (req, res) => {
 router.post('/putPastMedicationData', (req, res) => {
   let data = new PastMedication();
 
-  const { id, name, type, prescribedMonth, prescribedDay, prescribedYear, instructions } = req.body;
+  const { id, name, type, prescribedMonth, prescribedDay, prescribedYear, instructions, userID } = req.body;
 
-  if (!name || !type || !prescribedMonth || !prescribedDay || !prescribedYear || !instructions) {
+  if (!name || !type || !prescribedMonth || !prescribedDay || !prescribedYear || !instructions || !userID) {
     return res.json({
       success: false,
       error: 'ALL VALUES REQUIRED',
@@ -172,6 +174,7 @@ router.post('/putPastMedicationData', (req, res) => {
   data.prescribedDay = prescribedDay;
   data.prescribedYear = prescribedYear;
   data.instructions = instructions;
+  data.userID = userID;
 
   data.save((err) => {
     if (err) return res.json({ success: false, error: err });
@@ -200,6 +203,89 @@ router.get('/getUserData', (req, res) => {
     return res.json({ success: true, data: data });
   });
 });
+
+router.post('/postReminders', (req, res) => {
+  let data = new Reminders();
+
+  const { userid, hours, min, medname, useremail } = req.body;
+
+  if (!userid || !hours || !min || !medname || !useremail) {
+    return res.json({
+      success: false,
+      error: 'ALL VALUES REQUIRED',
+    })
+  }
+
+  data.userid = userid;
+  data.hours = hours;
+  data.min = min;
+  data.useremail = useremail;
+  data.medname = medname;
+
+  data.save((err) => {
+    if (err) return res.json({ success: false, error: err });
+    return res.json({ success: true });
+  });
+  remindP2(medname, hours, min, useremail);
+});
+
+
+const nodemailer = require('nodemailer');
+var cron = require('node-cron');
+const schedule = require('node-schedule');
+// const { callbackPromise } = require('nodemailer/lib/shared');
+
+// async function remindP1() {
+//   // Reminders.find((err) => {
+//   //   if (err) return res.json({ success: false, error: err });
+//   //   else {
+//   //     console.log("received: ");
+//   //   }
+//   // });
+//   let dateCurrent = new Date();
+//   const findResult = await Reminders.find({
+//     hours: dateCurrent.getHours(),
+//     min: dateCurrent.getMinutes(),
+//   });
+//   return findResult;
+// }
+// var data = [];
+// getData = () => {
+//   fetch(remindP1)
+//   .then((data) => data.json())
+//   .then((res) => this.setState({ data: res.data }));
+// }
+
+async function remindP2(name, hours, min, email) {
+  // console.log(data);
+  console.log("reminder created: ");
+  var transport = nodemailer.createTransport({
+    service: "gmail",
+    auth: {
+      user: 'medicationstime@gmail.com',
+      pass: 'Interlake2020'
+    }
+  });
+  const message = {
+    from: 'medicationstime@gmail.com', // Sender address
+    to: email,         // List of recipients
+    subject: 'Med time!', // Subject line
+    text: name + ": time to take this!" // Plain text body
+  };
+  var rule = new schedule.RecurrenceRule();
+  rule.dayOfWeek = [0, 1, 2, 3, 4, 5, 6];
+  rule.hour = hours;
+  rule.minute = min;
+  schedule.scheduleJob(rule, () => {
+    transport.sendMail(message, function (err, info) {
+      if (err) {
+        console.log(err)
+      } else {
+        console.log('Email sent: ' + info);
+      }
+    });
+  })
+}
 
 // append /api for our http requests
 app.use('/api', router);
