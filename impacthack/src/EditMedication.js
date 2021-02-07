@@ -192,6 +192,9 @@ class EditMedications extends Component {
                         Save Changes
                     </button>
                 </form>
+                <div className="footer">
+                    <p>Contact Us: </p>
+                </div>
             </div>
         );
 

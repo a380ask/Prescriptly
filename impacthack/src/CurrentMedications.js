@@ -30,7 +30,7 @@ class CurrentMedications extends Component {
     // changed and implement those changes into our UI
     componentDidMount() {
         this.getDataFromDb();
-        
+
         if (!this.state.intervalIsSet) {
             let interval = setInterval(this.getDataFromDb, 1000);
             this.setState({ intervalIsSet: interval });
@@ -50,10 +50,10 @@ class CurrentMedications extends Component {
         fetch('http://localhost:3001/api/getMedicationData')
             .then((data) => data.json())
             .then((res) => this.setState({ data: res.data }));
-        
-           
+
+
     }
-    
+
 
     //put current data into DB
     putDataToDB = (name, type, date, instructions) => {
@@ -102,15 +102,15 @@ class CurrentMedications extends Component {
     // our delete method that uses our backend api
     // to remove existing database information
     deleteFromDB = (idTodelete, deleteOrMove) => {
-        
+
         let message = '';
-        if(deleteOrMove == 'delete'){
+        if (deleteOrMove == 'delete') {
             message = "Are you sure you want to delete this medication?";
-        } else if (deleteOrMove == 'move'){
+        } else if (deleteOrMove == 'move') {
             message = "Are you sure you want to move this medication to past medication?";
         }
-        
-        if(window.confirm(message)){
+
+        if (window.confirm(message)) {
             let objIdToDelete = null;
             this.state.data.forEach((dat) => {
                 if (dat._id == idTodelete) {
@@ -128,107 +128,114 @@ class CurrentMedications extends Component {
     };
 
     filterData = () => {
-        for(let i = 0; i < this.state.data.length; i++){
-            if(this.state.data[i].userID == userIdString && this.isIncluded(this.state.data[i])){
+        for (let i = 0; i < this.state.data.length; i++) {
+            if (this.state.data[i].userID == userIdString && this.isIncluded(this.state.data[i])) {
                 filtered.push(this.state.data[i]);
             }
         }
     };
-    
+
     isIncluded = (object) => {
-        for(let i = 0; i < filtered.length; i++){
-            if(filtered[i]._id === object._id){
+        for (let i = 0; i < filtered.length; i++) {
+            if (filtered[i]._id === object._id) {
                 return false;
             }
         }
         return true;
     };
-    
+
 
     render() {
         const { data } = this.state;
         userIdString = window.location.href.substring(window.location.href.indexOf("#") + 1 + 1, window.location.href.indexOf("/", window.location.href.indexOf("#") + 1 + 1));
         this.filterData();
         return (
-            <div>
+            <div className = "medications">
                 <ul>
-                <li><NavLink to="/" onClick={genMess}>Sign Out</NavLink></li>
-                <li><NavLink to="/silly">Silly</NavLink></li>
-                <li><NavLink to={"/" + window.location.href.substring(window.location.href.indexOf("#") + 1 + 1, window.location.href.indexOf("/", window.location.href.indexOf("#") + 1 + 1)) + "/pastmedications"}>Past Medications</NavLink></li>
-                <li><NavLink to={"/" + window.location.href.substring(window.location.href.indexOf("#") + 1 + 1, window.location.href.indexOf("/", window.location.href.indexOf("#") + 1 + 1)) + "/currentmedications"}>Current Medications</NavLink></li>
-                <li><NavLink to={"/" + window.location.href.substring(window.location.href.indexOf("#") + 1 + 1, window.location.href.indexOf("/", window.location.href.indexOf("#") + 1 + 1)) + "/reminders"}>Reminders</NavLink></li>
-                <li><NavLink to={"/" + window.location.href.substring(window.location.href.indexOf("#") + 1 + 1, window.location.href.indexOf("/", window.location.href.indexOf("#") + 1 + 1)) + "/home"}>Home</NavLink></li>
+                    <li><NavLink to="/" onClick={genMess}>Sign Out</NavLink></li>
+                    <li><NavLink to="/silly">Silly</NavLink></li>
+                    <li><NavLink to={"/" + window.location.href.substring(window.location.href.indexOf("#") + 1 + 1, window.location.href.indexOf("/", window.location.href.indexOf("#") + 1 + 1)) + "/pastmedications"}>Past Medications</NavLink></li>
+                    <li><NavLink to={"/" + window.location.href.substring(window.location.href.indexOf("#") + 1 + 1, window.location.href.indexOf("/", window.location.href.indexOf("#") + 1 + 1)) + "/currentmedications"}>Current Medications</NavLink></li>
+                    <li><NavLink to={"/" + window.location.href.substring(window.location.href.indexOf("#") + 1 + 1, window.location.href.indexOf("/", window.location.href.indexOf("#") + 1 + 1)) + "/reminders"}>Reminders</NavLink></li>
+                    <li><NavLink to={"/" + window.location.href.substring(window.location.href.indexOf("#") + 1 + 1, window.location.href.indexOf("/", window.location.href.indexOf("#") + 1 + 1)) + "/home"}>Home</NavLink></li>
                 </ul>
                 <h2>Current Medications</h2>
-                <form>
-                    <label htmlFor="name">Name:  </label>
-                    <input
-                        type="text"
-                        name="name"
-                        placeholder="Name"
-                        id="name"
-                    /><br/>
-                    <label htmlFor="type">Type:  </label>
-                    <input
-                        type="text"
-                        name="type"
-                        placeholder="Type of Medication"
-                        id="type"
-                    /><br/>
-                    <label htmlFor="date">Starting Date:  </label>
-                    <input
-                        type="date"
-                        name="date"
-                        placeholder="Select Start Date: "
-                        id="date"
-                    /><br/>
-                    <label htmlFor="instructions">Instructions:  </label>
-                    <input
-                        type="text"
-                        name="instructions"
-                        placeholder="Instructions for Medication"
-                        id="instructions"
-                    /><br/>
-                    
-                    <button
-                        type="submit"
-                        onClick={() => this.putDataToDB(
-                            document.getElementById('name').value,
-                            document.getElementById('type').value,
-                            document.getElementById('date').value,
-                            document.getElementById('instructions').value
+                <div className = "left">
+                    <form>
+                        <label htmlFor="name">Name:  </label>
+                        <input
+                            type="text"
+                            name="name"
+                            placeholder="Name"
+                            id="name"
+                        /><br />
+                        <label htmlFor="type">Type:  </label>
+                        <input
+                            type="text"
+                            name="type"
+                            placeholder="Type of Medication"
+                            id="type"
+                        /><br />
+                        <label htmlFor="date">Starting Date:  </label>
+                        <input
+                            type="date"
+                            name="date"
+                            placeholder="Select Start Date: "
+                            id="date"
+                        /><br />
+                        <label htmlFor="instructions">Instructions:  </label>
+                        <input
+                            type="text"
+                            name="instructions"
+                            placeholder="Instructions for Medication"
+                            id="instructions"
+                        /><br />
+
+                        <button
+                            type="submit"
+                            onClick={() => this.putDataToDB(
+                                document.getElementById('name').value,
+                                document.getElementById('type').value,
+                                document.getElementById('date').value,
+                                document.getElementById('instructions').value
                             )}
-                    >
-                        Add New Medication
+                        >
+                            Add New Medication
                     </button>
-                </form>
-                <ul>
-                    {filtered.length <= 0 ? 'NO DB ENTRIES YET' : filtered.map((dat) => (
-                        <li style={{ padding: '10px' }} key={dat._id}>
-                            <span style={{ color: 'gray' }}> id: </span> {dat._id} <br />
-                            <span style={{ color: 'gray' }}> Medication: </span> {dat.name} <br />
-                            <span style={{ color: 'gray' }}> Type: </span> {dat.type} <br />
-                            <span style={{ color: 'gray' }}> Prescribed Date: </span> {dat.prescribedMonth}/{dat.prescribedDay}/{dat.prescribedYear} <br />
-                            <span style={{ color: 'gray' }}> Instructions: </span> {dat.instructions} <br />
+                    </form>
+                    </div>
+                    <ul>
+                    <div className = "container">
+                        {filtered.length <= 0 ? 'NO DB ENTRIES YET' : filtered.map((dat) => (
+                            <li style={{ padding: '10px' }} key={dat._id}>
+                                <span style={{ color: 'gray' }}> id: </span> {dat._id} <br />
+                                <span style={{ color: 'gray' }}> Medication: </span> {dat.name} <br />
+                                <span style={{ color: 'gray' }}> Type: </span> {dat.type} <br />
+                                <span style={{ color: 'gray' }}> Prescribed Date: </span> {dat.prescribedMonth}/{dat.prescribedDay}/{dat.prescribedYear} <br />
+                                <span style={{ color: 'gray' }}> Instructions: </span> {dat.instructions} <br />
 
-                            <NavLink to={"/" + window.location.href.substring(window.location.href.indexOf("#") + 1 + 1, window.location.href.indexOf("/", window.location.href.indexOf("#") + 1 + 1)) + "/editmedication/" + dat._id} >
-                                <button>EDIT</button> <br />
-                            </NavLink>
+                                <NavLink to={"/" + window.location.href.substring(window.location.href.indexOf("#") + 1 + 1, window.location.href.indexOf("/", window.location.href.indexOf("#") + 1 + 1)) + "/editmedication/" + dat._id} >
+                                    <button>EDIT</button> <br />
+                                </NavLink>
 
-                            <button onClick={() => this.deleteFromDB(dat._id, 'delete')}>
-                                DELETE
+                                <button onClick={() => this.deleteFromDB(dat._id, 'delete')}>
+                                    DELETE
                                 </button> <br />
 
-                            <button onClick={() => {
-                                this.putPastDataToDB(dat.name, dat.type, dat.prescribedMonth, dat.prescribedDay, dat.prescribedYear, dat.instructions);
-                                this.deleteFromDB(dat._id, 'move');
-                            }}>
-                                MOVE TO PAST MEDICATION
+                                <button onClick={() => {
+                                    this.putPastDataToDB(dat.name, dat.type, dat.prescribedMonth, dat.prescribedDay, dat.prescribedYear, dat.instructions);
+                                    this.deleteFromDB(dat._id, 'move');
+                                }}>
+                                    MOVE TO PAST MEDICATION
                                 </button> <br />
-                        </li>
-                    ))}
-                </ul>
-            </div>
+                            </li>
+                        ))}
+                           </div>
+                    </ul>
+                    <div className="footer">
+                    <p>Contact Us: </p>
+                </div>
+                </div>
 
         );
     }

@@ -149,6 +149,9 @@ class PastMedications extends Component {
                         </li>
                     ))}
                 </ul>
+                <div className="footer">
+                    <p>Contact Us: </p>
+                </div>
             </div>
         );
     }

@@ -108,6 +108,9 @@ class Reminders extends Component {
                 </form>
                 <button onClick={() => this.createReminder(document.getElementById("meds").value, document.getElementById("remindTime").value,
                     document.getElementById('email').value)}>Create Reminder</button>
+                 <div className="footer">
+                    <p>Contact Us: </p>
+                </div>
             </div>
         );
     }

@@ -83,34 +83,37 @@ class Register extends Component {
                 <h2>REGISTER</h2>
                 <p>{sessionStorage.getItem("message")}</p>
                 <fieldset>
-                <form>
-                    <input
-                        type="text"
-                        name="name"
-                        placeholder="Name"
-                        id="name"
-                    />
-                    <input
-                        type="email"
-                        name="email"
-                        placeholder="Email"
-                        id="email"
-                    />
-                    <input
-                        type="password"
-                        name="password"
-                        placeholder="Password"
-                        id="password"
-                    />
-                </form>
-                <button
-                    type="submit"
-                    onClick={() => this.checkData(document.getElementById('name').value,
-                        document.getElementById('email').value, document.getElementById('password').value)}
-                >
-                    Register
+                    <form>
+                        <input
+                            type="text"
+                            name="name"
+                            placeholder="Name"
+                            id="name"
+                        />
+                        <input
+                            type="email"
+                            name="email"
+                            placeholder="Email"
+                            id="email"
+                        />
+                        <input
+                            type="password"
+                            name="password"
+                            placeholder="Password"
+                            id="password"
+                        />
+                    </form>
+                    <button
+                        type="submit"
+                        onClick={() => this.checkData(document.getElementById('name').value,
+                            document.getElementById('email').value, document.getElementById('password').value)}
+                    >
+                        Register
                     </button>
-                    </fieldset>
+                </fieldset>
+                <div className="footer">
+                    <p>Contact Us: </p>
+                </div>
             </div>
         );
     }
