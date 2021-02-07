@@ -3,7 +3,11 @@ import {
     NavLink,
 } from "react-router-dom";
 import axios from "axios"
-import logo from './logo.png'; 
+import logo from './logo2 (2).png';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faLightbulb } from '@fortawesome/free-solid-svg-icons'
+
+const element = <FontAwesomeIcon icon={faLightbulb} />
 async function genMess() {
     sessionStorage.setItem("message", "Successfully signed out");
 }
@@ -32,7 +36,10 @@ const Home = () => {
     }, []);
     return (
         <div>
+
             <ul>
+                <NavLink to={"/" + window.location.href.substring(window.location.href.indexOf("#") + 1 + 1, window.location.href.indexOf("/", window.location.href.indexOf("#") + 1 + 1)) + "/home"}>
+                    <img src={logo} width="10%" /></NavLink>
                 <li><NavLink to="/" onClick={genMess}>Sign Out</NavLink></li>
                 <li><NavLink to={"/" + window.location.href.substring(window.location.href.indexOf("#") + 1 + 1, window.location.href.indexOf("/", window.location.href.indexOf("#") + 1 + 1)) + "/pastmedications"}>Past Medications</NavLink></li>
                 <li><NavLink to={"/" + window.location.href.substring(window.location.href.indexOf("#") + 1 + 1, window.location.href.indexOf("/", window.location.href.indexOf("#") + 1 + 1)) + "/currentmedications"}>Current Medications</NavLink></li>
@@ -49,22 +56,23 @@ const Home = () => {
                 </div>
             </div>
             <div className="get">
-                <button onClick={quoteApi}> Get Quote</button>
+                <button className="newButton" onClick={quoteApi}>{element} GET QUOTE {element}</button>
             </div>
-            <p>Our inspiration behind creating this website is to make use of technology to make it easier for people with health issues, especially the elderly.
-               Through prescriptly, the user is able to keep track of all the  medications that they have taken in the past and the ones they are taking currently. 
+            <div style={{ marginLeft: "auto", marginRight: "auto", width: "70%" }}>
+                <p>Our inspiration behind creating this website is to make use of technology to make it easier for people with health issues, especially the elderly.
+                Through prescriptly, the user is able to keep track of all the  medications that they have taken in the past and the ones they are taking currently.
             </p>
-            <p>This website allows the user to input their current medications and previous medications through a form. They are able to move current medications to
-                the past medication list if they are no longer using it. They are able to make changes to the information related to the medication. The user can also 
-                fill out a form that creates a reminder for them which will be sent by email at the time that they inputed. On the home page, an inspirational quote is 
-                displayed to motivate the user to make the best of their day.  
-
+                <p>This website allows the user to input their current medications and previous medications through a form. They are able to move current medications to
+                the past medication list if they are no longer using it. They are able to make changes to the information related to the medication. The user can also
+                fill out a form that creates a reminder for them which will be sent by email at the time that they inputed. On the home page, an inspirational quote is
+                displayed to motivate the user to make the best of their day.
             </p>
-            <p>Hope you enjoy our website!</p>
-            <p> ~ Kriti, Atharva, Khushaal</p>
+                <p>Hope you enjoy our website!</p>
+                <p> ~ Kriti, Atharva, Khushaal</p>
+            </div>
             <div className="footer">
-                    <p>Contact Us: </p>
-                </div>
+                <p>Contact Us: medicationstime@gmail.com</p>
+            </div>
         </div>
     );
 };

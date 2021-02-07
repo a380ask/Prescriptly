@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import axios from 'axios';
 import { NavLink } from 'react-router-dom';
-
+import logo from './logo2 (2).png';
 async function genMess() {
     sessionStorage.setItem("message", "Successfully signed out");
 }
@@ -121,6 +121,8 @@ class PastMedications extends Component {
 
             <div>
                 <ul>
+                    <NavLink to={"/" + window.location.href.substring(window.location.href.indexOf("#") + 1 + 1, window.location.href.indexOf("/", window.location.href.indexOf("#") + 1 + 1)) + "/home"}>
+                        <img src={logo} width="10%" /></NavLink>
                     <li><NavLink to="/" onClick={genMess}>Sign Out</NavLink></li>
                     <li><NavLink to={"/" + window.location.href.substring(window.location.href.indexOf("#") + 1 + 1, window.location.href.indexOf("/", window.location.href.indexOf("#") + 1 + 1)) + "/pastmedications"}>Past Medications</NavLink></li>
                     <li><NavLink to={"/" + window.location.href.substring(window.location.href.indexOf("#") + 1 + 1, window.location.href.indexOf("/", window.location.href.indexOf("#") + 1 + 1)) + "/currentmedications"}>Current Medications</NavLink></li>
@@ -155,7 +157,7 @@ class PastMedications extends Component {
                     </div>
                 ))}
                 <div className="footer">
-                    <p>Contact Us: </p>
+                    <p>Contact Us: medicationstime@gmail.com</p>
                 </div>
 
             </div>

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { NavLink, Redirect } from 'react-router-dom';
-
+import logo from './logo2 (2).png';
 var signedIn = false;
 
 class Signin extends Component {
@@ -57,6 +57,7 @@ class Signin extends Component {
         return (
             <div>
                 <ul>
+                    <NavLink to={"/"}><img src={logo} width="10%" /></NavLink>
                     <li><NavLink to="/">SIGN IN</NavLink></li>
                     <li><NavLink to="/register">REGISTER</NavLink></li>
                 </ul>
@@ -79,7 +80,7 @@ class Signin extends Component {
                             />
                         </form>
                         <button
-                        className="newButton"
+                            className="newButton"
                             onClick={() => this.clickSignin(document.getElementById("email").value, document.getElementById("password").value)}
                         >
                             SIGN IN
@@ -87,7 +88,7 @@ class Signin extends Component {
                     </fieldset>
                 </div>
                 <div className="footer">
-                    <p>Contact Us: </p>
+                    <p>Contact Us: medicationstime@gmail.com</p>
                 </div>
 
             </div>

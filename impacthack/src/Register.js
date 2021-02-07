@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import axios from 'axios';
 import { NavLink, Redirect } from 'react-router-dom';
-
+import logo from './logo2 (2).png';
 var signedIn = false;
 class Register extends Component {
     state = {
@@ -77,43 +77,44 @@ class Register extends Component {
         return (
             <div>
                 <ul>
+                    <NavLink to={"/"}><img src={logo} width="10%" /></NavLink>
                     <li><NavLink to="/">SIGN IN</NavLink></li>
                     <li><NavLink to="/register">REGISTER</NavLink></li>
                 </ul>
                 <h2>REGISTER</h2>
                 <p>{sessionStorage.getItem("message")}</p>
                 <fieldset>
-                <form>
-                    <input
-                        type="text"
-                        name="name"
-                        placeholder="Name"
-                        id="name"
-                    />
-                    <input
-                        type="email"
-                        name="email"
-                        placeholder="Email"
-                        id="email"
-                    />
-                    <input
-                        type="password"
-                        name="password"
-                        placeholder="Password"
-                        id="password"
-                    />
-                </form>
-                <button
-                    type="submit"
-                    className="newButton"
-                    onClick={() => this.checkData(document.getElementById('name').value,
-                        document.getElementById('email').value, document.getElementById('password').value)}
-                >
-                    Register
+                    <form>
+                        <input
+                            type="text"
+                            name="name"
+                            placeholder="Name"
+                            id="name"
+                        />
+                        <input
+                            type="email"
+                            name="email"
+                            placeholder="Email"
+                            id="email"
+                        />
+                        <input
+                            type="password"
+                            name="password"
+                            placeholder="Password"
+                            id="password"
+                        />
+                    </form>
+                    <button
+                        type="submit"
+                        className="newButton"
+                        onClick={() => this.checkData(document.getElementById('name').value,
+                            document.getElementById('email').value, document.getElementById('password').value)}
+                    >
+                        Register
                     </button>
                 </fieldset>
                 <div className="footer">
-                    <p>Contact Us: </p>
+                    <p>Contact Us: medicationstime@gmail.com</p>
                 </div>
             </div>
         );

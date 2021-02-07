@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { NavLink } from 'react-router-dom';
 import axios from 'axios';
+import logo from './logo2 (2).png';
 
 async function genMess() {
     sessionStorage.setItem("message", "Successfully signed out");
@@ -79,6 +80,8 @@ class Reminders extends Component {
         return (
             <div>
                 <ul>
+                    <NavLink to={"/" + window.location.href.substring(window.location.href.indexOf("#") + 1 + 1, window.location.href.indexOf("/", window.location.href.indexOf("#") + 1 + 1)) + "/home"}>
+                        <img src={logo} width="10%" /></NavLink>
                     <li><NavLink to="/" onClick={genMess}>Sign Out</NavLink></li>
                     <li><NavLink to={"/" + window.location.href.substring(window.location.href.indexOf("#") + 1 + 1, window.location.href.indexOf("/", window.location.href.indexOf("#") + 1 + 1)) + "/pastmedications"}>Past Medications</NavLink></li>
                     <li><NavLink to={"/" + window.location.href.substring(window.location.href.indexOf("#") + 1 + 1, window.location.href.indexOf("/", window.location.href.indexOf("#") + 1 + 1)) + "/currentmedications"}>Current Medications</NavLink></li>
@@ -88,31 +91,31 @@ class Reminders extends Component {
                 <h2>Reminders</h2>
                 <p id="message">{sessionStorage.getItem("message")}</p>
                 <fieldset>
-                <form className="">
-                    <label htmlFor="meds">Select a medication: </label>
-                    <select id="meds">
-                        <option disabled selected value="initial">---Select a medication---</option>
-                        {filtered.length <= 0 ? 'No medications; please add' : filtered.map((dat) => (
-                            <option value={dat.name} key={dat._id}>{dat.name}</option>
-                        ))}
-                    </select>
-                    <label htmlFor="remindTime">Reminder daily at: </label>
-                    <input
-                        type="time"
-                        id="remindTime"
-                    />
-                    <label htmlFor="remindTime">Email: </label>
-                    <input
-                        type="email"
-                        id="email"
-                        placeholder="Email"
-                    />
-                </form>
-                <button className="newButton" style={{padding: "6px"}} onClick={() => this.createReminder(document.getElementById("meds").value, document.getElementById("remindTime").value,
-                    document.getElementById('email').value)}>CREATE REMINDER</button>
+                    <form className="">
+                        <label htmlFor="meds">Select a medication: </label>
+                        <select id="meds">
+                            <option disabled selected value="initial">---Select a medication---</option>
+                            {filtered.length <= 0 ? 'No medications; please add' : filtered.map((dat) => (
+                                <option value={dat.name} key={dat._id}>{dat.name}</option>
+                            ))}
+                        </select>
+                        <label htmlFor="remindTime">Reminder daily at: </label>
+                        <input
+                            type="time"
+                            id="remindTime"
+                        />
+                        <label htmlFor="remindTime">Email: </label>
+                        <input
+                            type="email"
+                            id="email"
+                            placeholder="Email"
+                        />
+                    </form>
+                    <button className="newButton" style={{ padding: "6px" }} onClick={() => this.createReminder(document.getElementById("meds").value, document.getElementById("remindTime").value,
+                        document.getElementById('email').value)}>CREATE REMINDER</button>
                 </fieldset>
                 <div className="footer">
-                    <p>Contact Us: </p>
+                    <p>Contact Us: medicationstime@gmail.com</p>
                 </div>
             </div>
         );

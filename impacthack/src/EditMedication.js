@@ -1,11 +1,14 @@
 import React, { Component } from "react";
 import axios from 'axios';
 import { NavLink, Redirect } from 'react-router-dom';
-
+import ReactDOM from 'react-dom'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faArrowCircleLeft } from '@fortawesome/free-solid-svg-icons'
 async function genMess() {
     sessionStorage.setItem("message", "Successfully signed out");
 }
 
+const element = <FontAwesomeIcon icon={faArrowCircleLeft} />
 
 let filtered = [];
 let userIdString = '';
@@ -149,8 +152,8 @@ class EditMedications extends Component {
         return (
             <div>
                 <h2>Edit Medication</h2>
-                <NavLink to={"/" + window.location.href.substring(window.location.href.indexOf("#") + 1 + 1, window.location.href.indexOf("/", window.location.href.indexOf("#") + 1 + 1)) + "/currentmedications"}>Go Back to Current Medications</NavLink>
-
+                <NavLink className="newButton" style={{ fontFamily: "Arial", marginLeft: "26%", marginBottom:"25px" }} to={"/" + window.location.href.substring(window.location.href.indexOf("#") + 1 + 1, window.location.href.indexOf("/", window.location.href.indexOf("#") + 1 + 1)) + "/currentmedications"}>{element} BACK TO CURRENT MEDICATIONS</NavLink>
+                <fieldset>
                 <form>
                     <label htmlFor="name">Name:  </label>
                     <input
@@ -170,9 +173,9 @@ class EditMedications extends Component {
                     <input
                         type="date"
                         name="date"
-                        placeholder= "asdf"
+                        placeholder="asdf"
                         id="date"
-                    /><br/>
+                    /><br />
                     <label htmlFor="instructions">Instructions:  </label>
                     <input
                         type="text"
@@ -182,6 +185,7 @@ class EditMedications extends Component {
                     /><br />
                     <button
                         type="submit"
+                        className="newButton"
                         onClick={() => this.updateDB(medId,
                             document.getElementById('name').value,
                             document.getElementById('type').value,
@@ -189,9 +193,10 @@ class EditMedications extends Component {
                             document.getElementById('instructions').value)
                         }
                     >
-                        Save Changes
+                        SAVE CHANGES
                     </button>
                 </form>
+                </fieldset>
                 <div className="footer">
                     <p>Contact Us: </p>
                 </div>

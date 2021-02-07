@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import axios from 'axios';
-
+import logo from './logo2 (2).png';
 import { NavLink } from 'react-router-dom';
 
 async function genMess() {
@@ -151,8 +151,10 @@ class CurrentMedications extends Component {
         userIdString = window.location.href.substring(window.location.href.indexOf("#") + 1 + 1, window.location.href.indexOf("/", window.location.href.indexOf("#") + 1 + 1));
         this.filterData();
         return (
-            <div className = "medications">
+            <div className="medications">
                 <ul>
+                    <NavLink to={"/" + window.location.href.substring(window.location.href.indexOf("#") + 1 + 1, window.location.href.indexOf("/", window.location.href.indexOf("#") + 1 + 1)) + "/home"}>
+                        <img src={logo} width="10%" /></NavLink>
                     <li><NavLink to="/" onClick={genMess}>Sign Out</NavLink></li>
                     <li><NavLink to={"/" + window.location.href.substring(window.location.href.indexOf("#") + 1 + 1, window.location.href.indexOf("/", window.location.href.indexOf("#") + 1 + 1)) + "/pastmedications"}>Past Medications</NavLink></li>
                     <li><NavLink to={"/" + window.location.href.substring(window.location.href.indexOf("#") + 1 + 1, window.location.href.indexOf("/", window.location.href.indexOf("#") + 1 + 1)) + "/currentmedications"}>Current Medications</NavLink></li>
@@ -161,81 +163,81 @@ class CurrentMedications extends Component {
                 </ul>
                 <h2>Current Medications</h2>
                 <div className="outside">
-                <form className="left">
-                    <label htmlFor="name">Name:  </label>
-                    <input
-                        type="text"
-                        name="name"
-                        placeholder="Name"
-                        id="name"
-                    /><br />
-                    <label htmlFor="type">Type:  </label>
-                    <input
-                        type="text"
-                        name="type"
-                        placeholder="Type of Medication"
-                        id="type"
-                    /><br />
-                    <label htmlFor="date">Starting Date:  </label>
-                    <input
-                        type="date"
-                        name="date"
-                        placeholder="Select Start Date: "
-                        id="date"
-                    /><br />
-                    <label htmlFor="instructions">Instructions:  </label>
-                    <input
-                        type="text"
-                        name="instructions"
-                        placeholder="Instructions for Medication"
-                        id="instructions"
-                    /><br />
+                    <form className="left">
+                        <label htmlFor="name">Name:  </label>
+                        <input
+                            type="text"
+                            name="name"
+                            placeholder="Name"
+                            id="name"
+                        /><br />
+                        <label htmlFor="type">Type:  </label>
+                        <input
+                            type="text"
+                            name="type"
+                            placeholder="Type of Medication"
+                            id="type"
+                        /><br />
+                        <label htmlFor="date">Starting Date:  </label>
+                        <input
+                            type="date"
+                            name="date"
+                            placeholder="Select Start Date: "
+                            id="date"
+                        /><br />
+                        <label htmlFor="instructions">Instructions:  </label>
+                        <input
+                            type="text"
+                            name="instructions"
+                            placeholder="Instructions for Medication"
+                            id="instructions"
+                        /><br />
 
-                    <button
-                        className="newButton"
-                        type="submit"
-                        onClick={() => this.putDataToDB(
-                            document.getElementById('name').value,
-                            document.getElementById('type').value,
-                            document.getElementById('date').value,
-                            document.getElementById('instructions').value
-                        )}
-                    >
-                        ADD NEW MEDICATION
+                        <button
+                            className="newButton"
+                            type="submit"
+                            onClick={() => this.putDataToDB(
+                                document.getElementById('name').value,
+                                document.getElementById('type').value,
+                                document.getElementById('date').value,
+                                document.getElementById('instructions').value
+                            )}
+                        >
+                            ADD NEW MEDICATION
                     </button>
-                </form>
-                <div className="right">
-                    {filtered.length <= 0 ? 'NO DB ENTRIES YET' : filtered.map((dat) => (
-                        <div className="container">
-                            <div className="card" key={dat._id}>
-                                {/* <span > id: </span> {dat._id} <br /> */}
-                                <span > Medication: </span> {dat.name} <br />
-                                <span > Type: </span> {dat.type} <br />
-                                <span > Prescribed Date: </span> {dat.prescribedMonth}/{dat.prescribedDay}/{dat.prescribedYear} <br />
-                                <span > Instructions: </span> {dat.instructions} <br />
+                    </form>
+                    <div className="right">
+                        {filtered.length <= 0 ? 'NO DB ENTRIES YET' : filtered.map((dat) => (
+                            <div className="container">
+                                <div className="card" key={dat._id}>
+                                    {/* <span > id: </span> {dat._id} <br /> */}
+                                    <span > Medication: </span> {dat.name} <br />
+                                    <span > Type: </span> {dat.type} <br />
+                                    <span > Prescribed Date: </span> {dat.prescribedMonth}/{dat.prescribedDay}/{dat.prescribedYear} <br />
+                                    <span > Instructions: </span> {dat.instructions} <br />
 
-                                <div className="buttonGroup">
-                                    <NavLink className="newButton" type="button"  to={"/" + window.location.href.substring(window.location.href.indexOf("#") + 1 + 1, window.location.href.indexOf("/", window.location.href.indexOf("#") + 1 + 1)) + "/editmedication/" + dat._id} >
-                                    EDIT</NavLink>
+                                    <div className="buttonGroup">
+                                        <NavLink className="newButton" type="button" to={"/" + window.location.href.substring(window.location.href.indexOf("#") + 1 + 1, window.location.href.indexOf("/", window.location.href.indexOf("#") + 1 + 1)) + "/editmedication/" + dat._id} >
+                                            EDIT</NavLink>
 
-                                    <button className="newButton" style={{ paddingTop: "7px" }} onClick={() => this.deleteFromDB(dat._id, 'delete')}>
-                                        DELETE
+                                        <button className="newButton" style={{ paddingTop: "7px" }} onClick={() => this.deleteFromDB(dat._id, 'delete')}>
+                                            DELETE
                                         </button>
 
-                                    <button style={{ paddingTop: "8px" }} className="newButton" onClick={() => {
-                                        this.putPastDataToDB(dat.name, dat.type, dat.prescribedMonth, dat.prescribedDay, dat.prescribedYear, dat.instructions);
-                                        this.deleteFromDB(dat._id, 'move');
-                                    }}>
-                                        MOVE TO PAST MEDICATIONS
+                                        <button style={{ paddingTop: "8px" }} className="newButton" onClick={() => {
+                                            this.putPastDataToDB(dat.name, dat.type, dat.prescribedMonth, dat.prescribedDay, dat.prescribedYear, dat.instructions);
+                                            this.deleteFromDB(dat._id, 'move');
+                                        }}>
+                                            MOVE TO PAST MEDICATIONS
                                     </button>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    ))}
+                        ))}
+                    </div>
                 </div>
-                </div>
-                <div className="footer">
-                    <p>Contact Us: </p>
+                <div className="footer" >
+                    <p>Contact Us: medicationstime@gmail.com</p>
                 </div>
             </div>
 
