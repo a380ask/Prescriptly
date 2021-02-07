@@ -11,9 +11,7 @@ const medicationSchema = new Schema(
     prescribedDay: {type: Number, required: true},
     prescribedYear: {type: Number, required: true},
     instructions: {type: String, required: true},
-    userID: {type: Schema.Types.ObjectId}
-    
-
+    userID: {type: String, required: true}   
   }
 );
 
