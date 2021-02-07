@@ -151,7 +151,7 @@ class CurrentMedications extends Component {
         userIdString = window.location.href.substring(window.location.href.indexOf("#") + 1 + 1, window.location.href.indexOf("/", window.location.href.indexOf("#") + 1 + 1));
         this.filterData();
         return (
-            <div>
+            <div className = "medications">
                 <ul>
                     <li><NavLink to="/" onClick={genMess}>Sign Out</NavLink></li>
                     <li><NavLink to={"/" + window.location.href.substring(window.location.href.indexOf("#") + 1 + 1, window.location.href.indexOf("/", window.location.href.indexOf("#") + 1 + 1)) + "/pastmedications"}>Past Medications</NavLink></li>
@@ -233,6 +233,9 @@ class CurrentMedications extends Component {
                         </div>
                     ))}
                 </div>
+                </div>
+                <div className="footer">
+                    <p>Contact Us: </p>
                 </div>
             </div>
 

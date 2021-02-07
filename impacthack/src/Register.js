@@ -111,7 +111,10 @@ class Register extends Component {
                 >
                     Register
                     </button>
-                    </fieldset>
+                </fieldset>
+                <div className="footer">
+                    <p>Contact Us: </p>
+                </div>
             </div>
         );
     }

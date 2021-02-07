@@ -86,9 +86,9 @@ class Signin extends Component {
                     </button>
                     </fieldset>
                 </div>
-
-
-
+                <div className="footer">
+                    <p>Contact Us: </p>
+                </div>
 
             </div>
         );
