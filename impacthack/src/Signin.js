@@ -56,12 +56,14 @@ class Signin extends Component {
         }
         return (
             <div>
-                <h2>Sign in!</h2>
                 <ul>
-                    <li><NavLink to="/">Sign in</NavLink></li>
-                    <li><NavLink to="/register">Register</NavLink></li>
+                    <li><NavLink class = "active" to="/">SIGN IN</NavLink></li>
+                    <li><NavLink to="/register">REGISTER</NavLink></li>
                 </ul>
+                <h2>SIGN IN</h2>
+                <div className = "form">
                 <p id="message">{sessionStorage.getItem("message")}</p>
+                <fieldset>
                 <form>
                     <input
                         type="email"
@@ -79,8 +81,10 @@ class Signin extends Component {
                 <button
                     onClick={() => this.clickSignin(document.getElementById("email").value, document.getElementById("password").value)}
                 >
-                    Sign in
+                    Sign In
                     </button>
+                </fieldset>
+                </div>
 
 
 

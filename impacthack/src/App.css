@@ -1,4 +1,4 @@
-.App {
+/*.App {
   text-align: center;
 }
 
@@ -36,3 +36,84 @@
     transform: rotate(360deg);
   }
 }
+  */
+  ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color:#8ED0F2;
+    border-radius: 5px; 
+    margin:0px;
+    padding-bottom: 3px;
+  }
+  
+  li {
+    float: right;
+  }
+  
+  li:last-child {
+    border-right: none;
+  }
+  
+  li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 20px;
+    text-decoration: none;
+    font-family: Arial;
+    font-size: 15px;
+    margin-top: 5px;
+    font-weight: bold;
+
+    
+  }
+  li:hover {
+    background-color: #00BDFE;
+    margin-right: 3px;
+    border-radius:3px;
+  }
+
+  h2 {
+    text-align: center;
+    font-family: Arial;
+    font-size: 20px;
+    font-weight: none;
+    margin-top: 30px;
+  }
+  form {
+    padding-top: 40px;
+    text-align: center;
+    padding-right: 10px; 
+  }
+  button {
+    margin-left: 60%;
+    margin-top: 15px;
+    text-align: center; 
+    width: 20%;
+    background-color: #8ED0F2;
+    color: white;
+    padding: 14px 16px;
+    margin: 15px 205px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 15px;
+
+  }
+  fieldset{
+    width: 45%;
+    margin-left: 26%;
+    border-radius: 5px;
+    background-color: #F0F0F0;
+  }
+  input {
+  width: 100%;
+  padding: 8px 15px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  }
