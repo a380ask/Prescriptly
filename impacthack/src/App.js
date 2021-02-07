@@ -3,6 +3,7 @@ import {
   Route,
   HashRouter
 } from "react-router-dom";
+import "./App.css";
 import Home from "./Home";
 import PastMedications from "./PastMedications";
 import Reminders from "./Reminders";
@@ -11,8 +12,6 @@ import Signin from "./Signin";
 import Register from "./Register";
 import CurrentMedications from "./CurrentMedications";
 import EditMedication from "./EditMedication";
-import "./App.css";
-
 // async function windowLoc() {
 //     var loc = window.location.href;
 //     var indexHash = window.location.href.indexOf("#"); 
@@ -24,6 +23,7 @@ import "./App.css";
 class App extends Component {
   render() {
     return (
+      <div>
       <HashRouter>
         <div>
           <div className="content" id="id">
@@ -38,6 +38,7 @@ class App extends Component {
           </div>
         </div>
       </HashRouter>
+    </div>
     );
   }
 }

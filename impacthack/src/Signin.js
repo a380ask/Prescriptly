@@ -57,30 +57,34 @@ class Signin extends Component {
         return (
             <div>
                 <ul>
-                    <li><NavLink to="/">Sign in</NavLink></li>
-                    <li><NavLink to="/register">Register</NavLink></li>
+                    <li><NavLink to="/">SIGN IN</NavLink></li>
+                    <li><NavLink to="/register">REGISTER</NavLink></li>
                 </ul>
-                <h2>Sign in!</h2>
-                <p id="message">{sessionStorage.getItem("message")}</p>
-                <form>
-                    <input
-                        type="email"
-                        name="email"
-                        placeholder="Email"
-                        id="email"
-                    />
-                    <input
-                        type="password"
-                        name="password"
-                        placeholder="Password"
-                        id="password"
-                    />
-                </form>
-                <button
-                    onClick={() => this.clickSignin(document.getElementById("email").value, document.getElementById("password").value)}
-                >
-                    Sign in
+                <h2>SIGN IN</h2>
+                <div className="form">
+                    <p id="message">{sessionStorage.getItem("message")}</p>
+                    <fieldset>
+                        <form>
+                            <input
+                                type="email"
+                                name="email"
+                                placeholder="Email"
+                                id="email"
+                            />
+                            <input
+                                type="password"
+                                name="password"
+                                placeholder="Password"
+                                id="password"
+                            />
+                        </form>
+                        <button
+                            onClick={() => this.clickSignin(document.getElementById("email").value, document.getElementById("password").value)}
+                        >
+                            Sign In
                     </button>
+                    </fieldset>
+                </div>
 
 
 
