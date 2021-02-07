@@ -78,7 +78,7 @@ class Register extends Component {
             <div>
                 <ul>
                     <li><NavLink to="/">SIGN IN</NavLink></li>
-                    <li><NavLink class = "active" to="/register">REGISTER</NavLink></li>
+                    <li><NavLink to="/register">REGISTER</NavLink></li>
                 </ul>
                 <h2>REGISTER</h2>
                 <p>{sessionStorage.getItem("message")}</p>

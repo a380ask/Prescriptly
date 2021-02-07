@@ -57,33 +57,33 @@ class Signin extends Component {
         return (
             <div>
                 <ul>
-                    <li><NavLink class = "active" to="/">SIGN IN</NavLink></li>
+                    <li><NavLink to="/">SIGN IN</NavLink></li>
                     <li><NavLink to="/register">REGISTER</NavLink></li>
                 </ul>
                 <h2>SIGN IN</h2>
-                <div className = "form">
-                <p id="message">{sessionStorage.getItem("message")}</p>
-                <fieldset>
-                <form>
-                    <input
-                        type="email"
-                        name="email"
-                        placeholder="Email"
-                        id="email"
-                    />
-                    <input
-                        type="password"
-                        name="password"
-                        placeholder="Password"
-                        id="password"
-                    />
-                </form>
-                <button
-                    onClick={() => this.clickSignin(document.getElementById("email").value, document.getElementById("password").value)}
-                >
-                    Sign In
+                <div className="form">
+                    <p id="message">{sessionStorage.getItem("message")}</p>
+                    <fieldset>
+                        <form>
+                            <input
+                                type="email"
+                                name="email"
+                                placeholder="Email"
+                                id="email"
+                            />
+                            <input
+                                type="password"
+                                name="password"
+                                placeholder="Password"
+                                id="password"
+                            />
+                        </form>
+                        <button
+                            onClick={() => this.clickSignin(document.getElementById("email").value, document.getElementById("password").value)}
+                        >
+                            Sign In
                     </button>
-                </fieldset>
+                    </fieldset>
                 </div>
 
 
