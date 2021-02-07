@@ -82,7 +82,7 @@ class Register extends Component {
                     <li><NavLink to="/register">REGISTER</NavLink></li>
                 </ul>
                 <h2>REGISTER</h2>
-                <p>{sessionStorage.getItem("message")}</p>
+                <p  style={{backgroundColor:"red", marginLeft:"auto", marginRight:"auto", width: "30%"}}>{sessionStorage.getItem("message")}</p>
                 <fieldset>
                     <form>
                         <input

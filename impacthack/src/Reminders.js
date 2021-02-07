@@ -89,7 +89,7 @@ class Reminders extends Component {
                     <li><NavLink to={"/" + window.location.href.substring(window.location.href.indexOf("#") + 1 + 1, window.location.href.indexOf("/", window.location.href.indexOf("#") + 1 + 1)) + "/home"}>Home</NavLink></li>
                 </ul>
                 <h2>Reminders</h2>
-                <p id="message">{sessionStorage.getItem("message")}</p>
+                <p style={{backgroundColor:"red", marginLeft:"auto", marginRight:"auto", width: "30%"}} id="message">{sessionStorage.getItem("message")}</p>
                 <fieldset>
                     <form className="">
                         <label htmlFor="meds">Select a medication: </label>

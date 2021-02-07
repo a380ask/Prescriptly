@@ -63,7 +63,7 @@ class Signin extends Component {
                 </ul>
                 <h2>SIGN IN</h2>
                 <div className="form">
-                    <p id="message">{sessionStorage.getItem("message")}</p>
+                    <p style={{backgroundColor:"red", marginLeft:"auto", marginRight:"auto", width: "30%"}} id="message">{sessionStorage.getItem("message")}</p>
                     <fieldset>
                         <form>
                             <input
