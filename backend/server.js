@@ -262,12 +262,12 @@ async function remindP2(name, hours, min, email) {
   var transport = nodemailer.createTransport({
     service: "gmail",
     auth: {
-      user: 'medicationstime@gmail.com',
-      pass: 'Interlake2020'
+      user: 'SENDEREMAIL',
+      pass: 'SENDERPASSWORD'
     }
   });
   const message = {
-    from: 'medicationstime@gmail.com', // Sender address
+    from: 'SENDEREMAIL', // Sender address
     to: email,         // List of recipients
     subject: 'Med time!', // Subject line
     text: name + ": time to take this!" // Plain text body
