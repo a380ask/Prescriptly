@@ -108,9 +108,9 @@ router.post('/putSigninData', (req, res) => {
 router.post('/putMedicationData', (req, res) => {
   let data = new Medication();
 
-  const { id, name, type, prescribedMonth, prescribedDay, prescribedYear, instructions } = req.body;
+  const { id, name, type, prescribedMonth, prescribedDay, prescribedYear, instructions, userID } = req.body;
 
-  if (!name || !type || !prescribedMonth || !prescribedDay || !prescribedYear || !instructions) {
+  if (!name || !type || !prescribedMonth || !prescribedDay || !prescribedYear || !instructions || !userID) {
     return res.json({
       success: false,
       error: 'ALL VALUES REQUIRED',
@@ -124,6 +124,7 @@ router.post('/putMedicationData', (req, res) => {
   data.prescribedDay = prescribedDay;
   data.prescribedYear = prescribedYear;
   data.instructions = instructions;
+  data.userID = userID;
 
   data.save((err) => {
     if (err) return res.json({ success: false, error: err });
@@ -157,9 +158,9 @@ router.post('/updateMedicationData', (req, res) => {
 router.post('/putPastMedicationData', (req, res) => {
   let data = new PastMedication();
 
-  const { id, name, type, prescribedMonth, prescribedDay, prescribedYear, instructions } = req.body;
+  const { id, name, type, prescribedMonth, prescribedDay, prescribedYear, instructions, userID } = req.body;
 
-  if (!name || !type || !prescribedMonth || !prescribedDay || !prescribedYear || !instructions) {
+  if (!name || !type || !prescribedMonth || !prescribedDay || !prescribedYear || !instructions || !userID) {
     return res.json({
       success: false,
       error: 'ALL VALUES REQUIRED',
@@ -173,6 +174,7 @@ router.post('/putPastMedicationData', (req, res) => {
   data.prescribedDay = prescribedDay;
   data.prescribedYear = prescribedYear;
   data.instructions = instructions;
+  data.userID = userID;
 
   data.save((err) => {
     if (err) return res.json({ success: false, error: err });
