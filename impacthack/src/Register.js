@@ -105,6 +105,7 @@ class Register extends Component {
                 </form>
                 <button
                     type="submit"
+                    className="newButton"
                     onClick={() => this.checkData(document.getElementById('name').value,
                         document.getElementById('email').value, document.getElementById('password').value)}
                 >

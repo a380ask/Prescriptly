@@ -74,12 +74,12 @@ class PastMedications extends Component {
 
     deleteFromDB = (idTodelete, deleteOrMove) => {
         let message = '';
-        if(deleteOrMove == 'delete'){
+        if (deleteOrMove == 'delete') {
             message = "Are you sure you want to delete this medication?";
-        } else if (deleteOrMove == 'move'){
+        } else if (deleteOrMove == 'move') {
             message = "Are you sure you want to move this medication to past medication?";
         }
-        if(window.confirm(message)){
+        if (window.confirm(message)) {
             let objIdToDelete = null;
             this.state.data.forEach((dat) => {
                 if (dat._id == idTodelete) {
@@ -97,16 +97,16 @@ class PastMedications extends Component {
     };
 
     filterData = () => {
-        for(let i = 0; i < this.state.data.length; i++){
-            if(this.state.data[i].userID === userIdString && this.isIncluded(this.state.data[i])){
+        for (let i = 0; i < this.state.data.length; i++) {
+            if (this.state.data[i].userID === userIdString && this.isIncluded(this.state.data[i])) {
                 filtered.push(this.state.data[i]);
             }
         }
     }
 
     isIncluded = (object) => {
-        for(let i = 0; i < filtered.length; i++){
-            if(filtered[i]._id === object._id){
+        for (let i = 0; i < filtered.length; i++) {
+            if (filtered[i]._id === object._id) {
                 return false;
             }
         }
@@ -121,34 +121,39 @@ class PastMedications extends Component {
 
             <div>
                 <ul>
-                <li><NavLink to="/" onClick={genMess}>Sign Out</NavLink></li>
-                <li><NavLink to="/silly">Silly</NavLink></li>
-                <li><NavLink to={"/" + window.location.href.substring(window.location.href.indexOf("#") + 1 + 1, window.location.href.indexOf("/", window.location.href.indexOf("#") + 1 + 1)) + "/pastmedications"}>Past Medications</NavLink></li>
-                <li><NavLink to={"/" + window.location.href.substring(window.location.href.indexOf("#") + 1 + 1, window.location.href.indexOf("/", window.location.href.indexOf("#") + 1 + 1)) + "/currentmedications"}>Current Medications</NavLink></li>
-                <li><NavLink to={"/" + window.location.href.substring(window.location.href.indexOf("#") + 1 + 1, window.location.href.indexOf("/", window.location.href.indexOf("#") + 1 + 1)) + "/reminders"}>Reminders</NavLink></li>
-                <li><NavLink to={"/" + window.location.href.substring(window.location.href.indexOf("#") + 1 + 1, window.location.href.indexOf("/", window.location.href.indexOf("#") + 1 + 1)) + "/home"}>Home</NavLink></li>
+                    <li><NavLink to="/" onClick={genMess}>Sign Out</NavLink></li>
+                    <li><NavLink to={"/" + window.location.href.substring(window.location.href.indexOf("#") + 1 + 1, window.location.href.indexOf("/", window.location.href.indexOf("#") + 1 + 1)) + "/pastmedications"}>Past Medications</NavLink></li>
+                    <li><NavLink to={"/" + window.location.href.substring(window.location.href.indexOf("#") + 1 + 1, window.location.href.indexOf("/", window.location.href.indexOf("#") + 1 + 1)) + "/currentmedications"}>Current Medications</NavLink></li>
+                    <li><NavLink to={"/" + window.location.href.substring(window.location.href.indexOf("#") + 1 + 1, window.location.href.indexOf("/", window.location.href.indexOf("#") + 1 + 1)) + "/reminders"}>Reminders</NavLink></li>
+                    <li><NavLink to={"/" + window.location.href.substring(window.location.href.indexOf("#") + 1 + 1, window.location.href.indexOf("/", window.location.href.indexOf("#") + 1 + 1)) + "/home"}>Home</NavLink></li>
                 </ul>
                 <h2>Past medications</h2>
-                <ul>
-                    {filtered.length <= 0 ? 'NO DB ENTRIES YET' : filtered.map((dat) => (
-                        <li style={{ padding: '10px' }} key={dat._id}>
-                            <span style={{ color: 'gray' }}> id: </span> {dat._id} <br />
+                {filtered.length <= 0 ? 'NO DB ENTRIES YET' : filtered.map((dat) => (
+                    <div className="container" style={{ marginLeft: "auto", marginRight: "auto", width: "55%" }}>
+                        <div className="card" style={{ paddingTop: "5px" }} key={dat._id}>
+                            {/* <span style={{ color: 'gray' }}> id: </span> {dat._id} <br /> */}
+
                             <span style={{ color: 'gray' }}> Medication: </span> {dat.name} <br />
                             <span style={{ color: 'gray' }}> Type: </span> {dat.type} <br />
                             <span style={{ color: 'gray' }}> Prescribed Date: </span> {dat.prescribedMonth}/{dat.prescribedDay}/{dat.prescribedYear} <br />
                             <span style={{ color: 'gray' }}> Instructions: </span> {dat.instructions} <br />
-                            <button onClick={() => this.deleteFromDB(dat._id, 'delete')}>
-                                DELETE
-                                </button> <br />
-                            <button onClick={() => {
-                                this.putCurrentDataToDB(dat.name, dat.type, dat.prescribedMonth, dat.prescribedDay, dat.prescribedYear, dat.instructions);
-                                this.deleteFromDB(dat._id, 'move');
-                            }}>
-                                RETURN TO CURRENT MEDICATION
-                                </button> <br />
-                        </li>
-                    ))}
-                </ul>
+
+
+                            <div className="buttonGroup">
+                                <button className="newButton" onClick={() => this.deleteFromDB(dat._id, 'delete')}>
+                                    DELETE
+                                </button>
+                                <button className="newButton" onClick={() => {
+                                    this.putCurrentDataToDB(dat.name, dat.type, dat.prescribedMonth, dat.prescribedDay, dat.prescribedYear, dat.instructions);
+                                    this.deleteFromDB(dat._id, 'move');
+                                }}>
+                                    RETURN TO CURRENT MEDICATION
+                                </button>
+                            </div>
+
+                        </div>
+                    </div>
+                ))}
             </div>
         );
     }

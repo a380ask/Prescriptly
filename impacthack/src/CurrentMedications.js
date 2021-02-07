@@ -30,7 +30,7 @@ class CurrentMedications extends Component {
     // changed and implement those changes into our UI
     componentDidMount() {
         this.getDataFromDb();
-        
+
         if (!this.state.intervalIsSet) {
             let interval = setInterval(this.getDataFromDb, 1000);
             this.setState({ intervalIsSet: interval });
@@ -50,10 +50,10 @@ class CurrentMedications extends Component {
         fetch('http://localhost:3001/api/getMedicationData')
             .then((data) => data.json())
             .then((res) => this.setState({ data: res.data }));
-        
-           
+
+
     }
-    
+
 
     //put current data into DB
     putDataToDB = (name, type, date, instructions) => {
@@ -102,15 +102,15 @@ class CurrentMedications extends Component {
     // our delete method that uses our backend api
     // to remove existing database information
     deleteFromDB = (idTodelete, deleteOrMove) => {
-        
+
         let message = '';
-        if(deleteOrMove == 'delete'){
+        if (deleteOrMove == 'delete') {
             message = "Are you sure you want to delete this medication?";
-        } else if (deleteOrMove == 'move'){
+        } else if (deleteOrMove == 'move') {
             message = "Are you sure you want to move this medication to past medication?";
         }
-        
-        if(window.confirm(message)){
+
+        if (window.confirm(message)) {
             let objIdToDelete = null;
             this.state.data.forEach((dat) => {
                 if (dat._id == idTodelete) {
@@ -128,22 +128,23 @@ class CurrentMedications extends Component {
     };
 
     filterData = () => {
-        for(let i = 0; i < this.state.data.length; i++){
-            if(this.state.data[i].userID == userIdString && this.isIncluded(this.state.data[i])){
+        for (let i = 0; i < this.state.data.length; i++) {
+            if (this.state.data[i].userID == userIdString && this.isIncluded(this.state.data[i])) {
                 filtered.push(this.state.data[i]);
             }
         }
     };
-    
+
     isIncluded = (object) => {
-        for(let i = 0; i < filtered.length; i++){
-            if(filtered[i]._id === object._id){
+        for (let i = 0; i < filtered.length; i++) {
+            if (filtered[i]._id === object._id) {
                 return false;
             }
         }
         return true;
     };
-    
+
+
 
     render() {
         const { data } = this.state;
@@ -152,82 +153,87 @@ class CurrentMedications extends Component {
         return (
             <div>
                 <ul>
-                <li><NavLink to="/" onClick={genMess}>Sign Out</NavLink></li>
-                <li><NavLink to="/silly">Silly</NavLink></li>
-                <li><NavLink to={"/" + window.location.href.substring(window.location.href.indexOf("#") + 1 + 1, window.location.href.indexOf("/", window.location.href.indexOf("#") + 1 + 1)) + "/pastmedications"}>Past Medications</NavLink></li>
-                <li><NavLink to={"/" + window.location.href.substring(window.location.href.indexOf("#") + 1 + 1, window.location.href.indexOf("/", window.location.href.indexOf("#") + 1 + 1)) + "/currentmedications"}>Current Medications</NavLink></li>
-                <li><NavLink to={"/" + window.location.href.substring(window.location.href.indexOf("#") + 1 + 1, window.location.href.indexOf("/", window.location.href.indexOf("#") + 1 + 1)) + "/reminders"}>Reminders</NavLink></li>
-                <li><NavLink to={"/" + window.location.href.substring(window.location.href.indexOf("#") + 1 + 1, window.location.href.indexOf("/", window.location.href.indexOf("#") + 1 + 1)) + "/home"}>Home</NavLink></li>
+                    <li><NavLink to="/" onClick={genMess}>Sign Out</NavLink></li>
+                    <li><NavLink to={"/" + window.location.href.substring(window.location.href.indexOf("#") + 1 + 1, window.location.href.indexOf("/", window.location.href.indexOf("#") + 1 + 1)) + "/pastmedications"}>Past Medications</NavLink></li>
+                    <li><NavLink to={"/" + window.location.href.substring(window.location.href.indexOf("#") + 1 + 1, window.location.href.indexOf("/", window.location.href.indexOf("#") + 1 + 1)) + "/currentmedications"}>Current Medications</NavLink></li>
+                    <li><NavLink to={"/" + window.location.href.substring(window.location.href.indexOf("#") + 1 + 1, window.location.href.indexOf("/", window.location.href.indexOf("#") + 1 + 1)) + "/reminders"}>Reminders</NavLink></li>
+                    <li><NavLink to={"/" + window.location.href.substring(window.location.href.indexOf("#") + 1 + 1, window.location.href.indexOf("/", window.location.href.indexOf("#") + 1 + 1)) + "/home"}>Home</NavLink></li>
                 </ul>
                 <h2>Current Medications</h2>
-                <form>
+                <div className="outside">
+                <form className="left">
                     <label htmlFor="name">Name:  </label>
                     <input
                         type="text"
                         name="name"
                         placeholder="Name"
                         id="name"
-                    /><br/>
+                    /><br />
                     <label htmlFor="type">Type:  </label>
                     <input
                         type="text"
                         name="type"
                         placeholder="Type of Medication"
                         id="type"
-                    /><br/>
+                    /><br />
                     <label htmlFor="date">Starting Date:  </label>
                     <input
                         type="date"
                         name="date"
                         placeholder="Select Start Date: "
                         id="date"
-                    /><br/>
+                    /><br />
                     <label htmlFor="instructions">Instructions:  </label>
                     <input
                         type="text"
                         name="instructions"
                         placeholder="Instructions for Medication"
                         id="instructions"
-                    /><br/>
-                    
+                    /><br />
+
                     <button
+                        className="newButton"
                         type="submit"
                         onClick={() => this.putDataToDB(
                             document.getElementById('name').value,
                             document.getElementById('type').value,
                             document.getElementById('date').value,
                             document.getElementById('instructions').value
-                            )}
+                        )}
                     >
-                        Add New Medication
+                        ADD NEW MEDICATION
                     </button>
                 </form>
-                <ul>
+                <div className="right">
                     {filtered.length <= 0 ? 'NO DB ENTRIES YET' : filtered.map((dat) => (
-                        <li style={{ padding: '10px' }} key={dat._id}>
-                            <span style={{ color: 'gray' }}> id: </span> {dat._id} <br />
-                            <span style={{ color: 'gray' }}> Medication: </span> {dat.name} <br />
-                            <span style={{ color: 'gray' }}> Type: </span> {dat.type} <br />
-                            <span style={{ color: 'gray' }}> Prescribed Date: </span> {dat.prescribedMonth}/{dat.prescribedDay}/{dat.prescribedYear} <br />
-                            <span style={{ color: 'gray' }}> Instructions: </span> {dat.instructions} <br />
+                        <div className="container">
+                            <div className="card" key={dat._id}>
+                                {/* <span > id: </span> {dat._id} <br /> */}
+                                <span > Medication: </span> {dat.name} <br />
+                                <span > Type: </span> {dat.type} <br />
+                                <span > Prescribed Date: </span> {dat.prescribedMonth}/{dat.prescribedDay}/{dat.prescribedYear} <br />
+                                <span > Instructions: </span> {dat.instructions} <br />
 
-                            <NavLink to={"/" + window.location.href.substring(window.location.href.indexOf("#") + 1 + 1, window.location.href.indexOf("/", window.location.href.indexOf("#") + 1 + 1)) + "/editmedication/" + dat._id} >
-                                <button>EDIT</button> <br />
-                            </NavLink>
+                                <div className="buttonGroup">
+                                    <NavLink className="newButton" type="button"  to={"/" + window.location.href.substring(window.location.href.indexOf("#") + 1 + 1, window.location.href.indexOf("/", window.location.href.indexOf("#") + 1 + 1)) + "/editmedication/" + dat._id} >
+                                    EDIT</NavLink>
 
-                            <button onClick={() => this.deleteFromDB(dat._id, 'delete')}>
-                                DELETE
-                                </button> <br />
+                                    <button className="newButton" style={{ paddingTop: "7px" }} onClick={() => this.deleteFromDB(dat._id, 'delete')}>
+                                        DELETE
+                                        </button>
 
-                            <button onClick={() => {
-                                this.putPastDataToDB(dat.name, dat.type, dat.prescribedMonth, dat.prescribedDay, dat.prescribedYear, dat.instructions);
-                                this.deleteFromDB(dat._id, 'move');
-                            }}>
-                                MOVE TO PAST MEDICATION
-                                </button> <br />
-                        </li>
+                                    <button style={{ paddingTop: "8px" }} className="newButton" onClick={() => {
+                                        this.putPastDataToDB(dat.name, dat.type, dat.prescribedMonth, dat.prescribedDay, dat.prescribedYear, dat.instructions);
+                                        this.deleteFromDB(dat._id, 'move');
+                                    }}>
+                                        MOVE TO PAST MEDICATIONS
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
                     ))}
-                </ul>
+                </div>
+                </div>
             </div>
 
         );

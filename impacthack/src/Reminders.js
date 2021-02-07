@@ -55,16 +55,16 @@ class Reminders extends Component {
     }
 
     filterData = () => {
-        for(let i = 0; i < this.state.data.length; i++){
-            if(this.state.data[i].userID == userIdString && this.isIncluded(this.state.data[i])){
+        for (let i = 0; i < this.state.data.length; i++) {
+            if (this.state.data[i].userID == userIdString && this.isIncluded(this.state.data[i])) {
                 filtered.push(this.state.data[i]);
             }
         }
     };
-    
+
     isIncluded = (object) => {
-        for(let i = 0; i < filtered.length; i++){
-            if(filtered[i]._id === object._id){
+        for (let i = 0; i < filtered.length; i++) {
+            if (filtered[i]._id === object._id) {
                 return false;
             }
         }
@@ -79,35 +79,38 @@ class Reminders extends Component {
         return (
             <div>
                 <ul>
-                <li><NavLink to="/" onClick={genMess}>Sign Out</NavLink></li>
-                <li><NavLink to="/silly">Silly</NavLink></li>
-                <li><NavLink to={"/" + window.location.href.substring(window.location.href.indexOf("#") + 1 + 1, window.location.href.indexOf("/", window.location.href.indexOf("#") + 1 + 1)) + "/pastmedications"}>Past Medications</NavLink></li>
-                <li><NavLink to={"/" + window.location.href.substring(window.location.href.indexOf("#") + 1 + 1, window.location.href.indexOf("/", window.location.href.indexOf("#") + 1 + 1)) + "/currentmedications"}>Current Medications</NavLink></li>
-                <li><NavLink to={"/" + window.location.href.substring(window.location.href.indexOf("#") + 1 + 1, window.location.href.indexOf("/", window.location.href.indexOf("#") + 1 + 1)) + "/reminders"}>Reminders</NavLink></li>
-                <li><NavLink to={"/" + window.location.href.substring(window.location.href.indexOf("#") + 1 + 1, window.location.href.indexOf("/", window.location.href.indexOf("#") + 1 + 1)) + "/home"}>Home</NavLink></li>
+                    <li><NavLink to="/" onClick={genMess}>Sign Out</NavLink></li>
+                    <li><NavLink to={"/" + window.location.href.substring(window.location.href.indexOf("#") + 1 + 1, window.location.href.indexOf("/", window.location.href.indexOf("#") + 1 + 1)) + "/pastmedications"}>Past Medications</NavLink></li>
+                    <li><NavLink to={"/" + window.location.href.substring(window.location.href.indexOf("#") + 1 + 1, window.location.href.indexOf("/", window.location.href.indexOf("#") + 1 + 1)) + "/currentmedications"}>Current Medications</NavLink></li>
+                    <li><NavLink to={"/" + window.location.href.substring(window.location.href.indexOf("#") + 1 + 1, window.location.href.indexOf("/", window.location.href.indexOf("#") + 1 + 1)) + "/reminders"}>Reminders</NavLink></li>
+                    <li><NavLink to={"/" + window.location.href.substring(window.location.href.indexOf("#") + 1 + 1, window.location.href.indexOf("/", window.location.href.indexOf("#") + 1 + 1)) + "/home"}>Home</NavLink></li>
                 </ul>
                 <h2>Reminders</h2>
                 <p id="message">{sessionStorage.getItem("message")}</p>
-                <form>
+                <fieldset>
+                <form className="">
+                    <label htmlFor="meds">Select a medication: </label>
                     <select id="meds">
                         <option disabled selected value="initial">---Select a medication---</option>
                         {filtered.length <= 0 ? 'No medications; please add' : filtered.map((dat) => (
                             <option value={dat.name} key={dat._id}>{dat.name}</option>
                         ))}
                     </select>
-                    <label htmlfor="remindTime">Reminder daily at: </label>
+                    <label htmlFor="remindTime">Reminder daily at: </label>
                     <input
                         type="time"
                         id="remindTime"
                     />
+                    <label htmlFor="remindTime">Email: </label>
                     <input
                         type="email"
                         id="email"
                         placeholder="Email"
                     />
                 </form>
-                <button onClick={() => this.createReminder(document.getElementById("meds").value, document.getElementById("remindTime").value,
-                    document.getElementById('email').value)}>Create Reminder</button>
+                <button className="newButton" style={{padding: "6px"}} onClick={() => this.createReminder(document.getElementById("meds").value, document.getElementById("remindTime").value,
+                    document.getElementById('email').value)}>CREATE REMINDER</button>
+                </fieldset>
             </div>
         );
     }
