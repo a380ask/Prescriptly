@@ -60,7 +60,11 @@ class EditMedications extends Component {
             .then((res) => this.setState({ data: res.data }));
     };
 
-    updateDB(idToUpdate, updatedName, updatedType, updatedMonth, updatedDay, updatedYear, updatedInstructions) {
+    updateDB(idToUpdate, updatedName, updatedType, updatedDate, updatedInstructions) {
+        let updatedMonth = updatedDate.substring(5, 7);
+        let updatedDay = updatedDate.substring(8);
+        let updatedYear = updatedDate.substring(0, 4);
+
         if (updatedName === '') {
             updatedName = medName;
         }
@@ -162,33 +166,13 @@ class EditMedications extends Component {
                         placeholder={medType}
                         id="type"
                     /><br />
-                    <label htmlFor="prescribedMonth">Month:  </label>
+                    <label htmlFor="date">Starting Date:  </label>
                     <input
-                        type="number"
-                        min="1"
-                        max="12"
-                        name="prescribedMonth"
-                        placeholder={medMonth}
-                        id="prescribedMonth"
-                    /><br />
-                    <label htmlFor="prescribedDay">Day:  </label>
-                    <input
-                        type="number"
-                        min="1"
-                        max="31"
-                        name="prescribedDay"
-                        placeholder={medDay}
-                        id="prescribedDay"
-                    /><br />
-                    <label htmlFor="prescribedYear">Year:  </label>
-                    <input
-                        type="number"
-                        min="1940"
-                        max="2050"
-                        name="prescribedYear"
-                        placeholder={medYear}
-                        id="prescribedYear"
-                    /><br />
+                        type="date"
+                        name="date"
+                        placeholder= "asdf"
+                        id="date"
+                    /><br/>
                     <label htmlFor="instructions">Instructions:  </label>
                     <input
                         type="text"
@@ -201,9 +185,7 @@ class EditMedications extends Component {
                         onClick={() => this.updateDB(medId,
                             document.getElementById('name').value,
                             document.getElementById('type').value,
-                            document.getElementById('prescribedMonth').value,
-                            document.getElementById('prescribedDay').value,
-                            document.getElementById('prescribedYear').value,
+                            document.getElementById('date').value,
                             document.getElementById('instructions').value)
                         }
                     >

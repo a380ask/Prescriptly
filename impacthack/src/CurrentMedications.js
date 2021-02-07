@@ -56,7 +56,10 @@ class CurrentMedications extends Component {
     
 
     //put current data into DB
-    putDataToDB = (name, type, prescribedMonth, prescribedDay, prescribedYear, instructions) => {
+    putDataToDB = (name, type, date, instructions) => {
+        let prescribedMonth = date.substring(5, 7);
+        let prescribedDay = date.substring(8);
+        let prescribedYear = date.substring(0, 4);
         let currentIds = this.state.data.map((data) => data.id);
         let idToBeAdded = 0;
         while (currentIds.includes(idToBeAdded)) {
@@ -121,12 +124,13 @@ class CurrentMedications extends Component {
                 },
             });
         }
+        window.location.reload();
     };
 
     filterData = () => {
-        for(let i = 0; i < dataCopy.length; i++){
-            if(dataCopy[i].userID == userIdString && this.isIncluded(dataCopy[i])){
-                filtered.push(dataCopy[i]);
+        for(let i = 0; i < this.state.data.length; i++){
+            if(this.state.data[i].userID == userIdString && this.isIncluded(this.state.data[i])){
+                filtered.push(this.state.data[i]);
             }
         }
     };
@@ -143,7 +147,6 @@ class CurrentMedications extends Component {
 
     render() {
         const { data } = this.state;
-        dataCopy = this.state.data;
         userIdString = window.location.href.substring(window.location.href.indexOf("#") + 1 + 1, window.location.href.indexOf("/", window.location.href.indexOf("#") + 1 + 1));
         this.filterData();
         return (
@@ -172,32 +175,12 @@ class CurrentMedications extends Component {
                         placeholder="Type of Medication"
                         id="type"
                     /><br/>
-                    <label htmlFor="prescribedMonth">Starting Month:  </label>
+                    <label htmlFor="date">Starting Date:  </label>
                     <input
-                        type="number"
-                        min="1"
-                        max="12"
-                        name="prescribedMonth"
-                        placeholder="Month"
-                        id="prescribedMonth"
-                    /><br/>
-                    <label htmlFor="prescribedDay">Starring Day:  </label>
-                    <input
-                        type="number"
-                        min="1"
-                        max="31"
-                        name="prescribedDay"
-                        placeholder="Day"
-                        id="prescribedDay"
-                    /><br/>
-                    <label htmlFor="prescribedYear">Starting Year:  </label>
-                    <input
-                        type="number"
-                        min="1940"
-                        max="2050"
-                        name="prescribedYear"
-                        placeholder="Year"
-                        id="prescribedYear"
+                        type="date"
+                        name="date"
+                        placeholder="Select Start Date: "
+                        id="date"
                     /><br/>
                     <label htmlFor="instructions">Instructions:  </label>
                     <input
@@ -205,16 +188,16 @@ class CurrentMedications extends Component {
                         name="instructions"
                         placeholder="Instructions for Medication"
                         id="instructions"
-                    /><br/><br/>
+                    /><br/>
+                    
                     <button
                         type="submit"
                         onClick={() => this.putDataToDB(
                             document.getElementById('name').value,
                             document.getElementById('type').value,
-                            document.getElementById('prescribedMonth').value,
-                            document.getElementById('prescribedDay').value,
-                            document.getElementById('prescribedYear').value,
-                            document.getElementById('instructions').value)}
+                            document.getElementById('date').value,
+                            document.getElementById('instructions').value
+                            )}
                     >
                         Add New Medication
                     </button>

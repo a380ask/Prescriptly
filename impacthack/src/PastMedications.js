@@ -65,7 +65,8 @@ class PastMedications extends Component {
             prescribedMonth: prescribedMonth,
             prescribedDay: prescribedDay,
             prescribedYear: prescribedYear,
-            instructions: instructions
+            instructions: instructions,
+            userID: userIdString
 
         });
     };
@@ -92,6 +93,7 @@ class PastMedications extends Component {
                 },
             });
         }
+        window.location.reload();
     };
 
     filterData = () => {
