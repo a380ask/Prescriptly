@@ -17,6 +17,15 @@ class Reminders extends Component {
                     <li><NavLink to="/silly">Silly</NavLink></li>
                     <li><NavLink to="/" onClick={genMess}>Sign Out</NavLink></li>
                 </ul>
+                <form>
+                    <input 
+                    type = "tel"
+                    placeholder = "Phone Number"
+                    />
+                    <input
+                    
+                    />
+                </form>
             </div>
         );
     }
