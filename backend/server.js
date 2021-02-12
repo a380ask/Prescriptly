@@ -16,7 +16,7 @@ const router = express.Router();
 
 // this is our MongoDB database
 const dbRoute =
-  'mongodb+srv://user:user2020@cluster0.mp5uy.mongodb.net/impactHack?retryWrites=true&w=majority';
+  DB_Route;
 
 // connects our back end code with the database
 mongoose.connect(dbRoute, { useNewUrlParser: true });
